@@ -5,11 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:nmct.ba.CashlessProject.Klant.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="470" d:DesignWidth="790">
     <UserControl.DataContext>
         <vm:PageOneVM/>
     </UserControl.DataContext>
     <Grid>
-        <TextBlock Text="{Binding Demo}"/>
+        <TextBlock Text="{Binding Intro}" FontSize="30" TextAlignment="Center" Margin="0,120,0,300" />
+        <TextBlock Text="{Binding EidMelding}" TextAlignment="Center" Width="790" FontSize="20" Margin="0,250,0,190" />
+        <TextBlock Text="{Binding EIDAanwezig }" TextAlignment="Center" Width="790" FontSize="20" Margin="0,313,0.4,126.4" />
+        <Button Command="{Binding EIDLezen}" Content="Verder" Height="30" Width="100" Margin="0,300,0,0"/>
     </Grid>
 </UserControl>
