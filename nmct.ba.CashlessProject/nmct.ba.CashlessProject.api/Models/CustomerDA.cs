@@ -17,22 +17,32 @@ namespace nmct.ba.CashlessProject.api.Models
             DbDataReader reader = Database.GetData(Database.GetConnection("ConnectionString"), "SELECT * FROM RSCA.dbo.Customer");
             while (reader.Read())
             {
-                resultaat.Add(Create(reader));
+                Customer c = new Customer();
+                c.ID = Convert.ToInt32(reader["ID"]);
+                c.Name = reader["CustomerName"].ToString();
+                c.NationalNumber = reader["NationalNumber"].ToString();
+                c.Address = reader["Address"].ToString();
+                c.Balance = Double.Parse(reader["Balance"].ToString());
+                if (!DBNull.Value.Equals(reader["Picture"]))
+                    c.Picture = (byte[])reader["Picture"];
+                else
+                    c.Picture = new byte[0];
+                resultaat.Add(c);
             }
             reader.Close();
             return resultaat;
         }
-        private static Customer Create(IDataRecord record)
+        public static int SaveCustomer(Customer newcustomer)
         {
-            return new Customer()
-            {
-                ID = Convert.ToInt32(record["ID"]),
-                Name = record["CustomerName"].ToString(),
-                NationalNumber = record["NationalNumber"].ToString(),
-                Address = record["Address"].ToString(),
-                Balance = Convert.ToDouble(record["Balance"]),
-                Picture = record["Picture"].ToString()
-            };
+            string sql = "INSERT INTO RSCA.dbo.Customer VALUES(@CustomerName,@Address,@Balance,@NationalNumber,@Picture)";
+            DbParameter par1 = Database.AddParameter("ConnectionString", "@CustomerName", newcustomer.Name);
+            DbParameter par2 = Database.AddParameter("ConnectionString", "@Address", newcustomer.Address);
+            DbParameter par3 = Database.AddParameter("ConnectionString", "@Balance", newcustomer.Balance);
+            DbParameter par4 = Database.AddParameter("ConnectionString", "@NationalNumber", newcustomer.NationalNumber);
+            DbParameter par5 = Database.AddParameter("ConnectionString", "@Picture", newcustomer.Picture);
+            int id = Database.InsertData(Database.GetConnection("ConnectionString"), sql, par1, par2, par3, par4, par5);
+            return id;
+
         }
     }
 }

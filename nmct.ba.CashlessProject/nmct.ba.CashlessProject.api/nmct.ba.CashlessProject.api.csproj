@@ -303,7 +303,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>19451</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:25000/</IISUrl>
+          <IISUrl>http://localhost:20000/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

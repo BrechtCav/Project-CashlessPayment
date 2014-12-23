@@ -41,7 +41,7 @@ namespace nmct.ba.CashlessProject.Klant.ViewModel
             get { return new RelayCommand<IPage>(ChangePage); }
         }
 
-        private void ChangePage(IPage page)
+        public void ChangePage(IPage page)
         {
             CurrentPage = page;
         }

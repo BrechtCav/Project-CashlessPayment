@@ -42,13 +42,14 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
+        <Image x:Name="imgVideo" Stretch="Fill" Grid.ColumnSpan="5" Grid.Column="3" Margin="98.6,25.2,0,0.4" Grid.Row="6" Grid.RowSpan="10" HorizontalAlignment="Left" Width="395"   />
         <TextBlock Text="Huidig saldo:" FontSize="16" TextAlignment="Left"  Grid.Row="2" Grid.Column="1" />
         <TextBlock Text="" FontSize="16" TextAlignment="Left"  Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3" />
         <TextBlock Text="Bijkomend saldo:" FontSize="16" TextAlignment="Left"  Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" />
         <TextBox Text="" FontSize="16" TextAlignment="Left"  Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" />
         <TextBlock Text="Saldo na verhoging:" Grid.ColumnSpan="2" FontSize="16" TextAlignment="Left"  Grid.Row="6" Grid.Column="1" />
         <TextBlock Text="" FontSize="16" TextAlignment="Left"  Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2" />
-        <Button  Content="Saldo verhogen"  Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+        <Button  Content="Scan Biljet"  Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
         <Button  Content="Annuleren"  Grid.Column="1" Grid.Row="12" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
 
     </Grid>

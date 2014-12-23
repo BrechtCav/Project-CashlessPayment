@@ -13,8 +13,8 @@
         <Grid>
             <TextBlock Text="U bent een nieuw lid." FontSize="25" TextAlignment="Center" Margin="0,120,0,300" />
             <TextBlock Text="Wilt u zich registreren?" FontSize="25" TextAlignment="Center" Margin="0,180,0,200" />
-            <Button  Content="Ja" FontSize="20" Height="45" Width="150" Margin="-145,100,100,0"/>
-            <Button  Content="Nee" FontSize="20" Height="45" Width="150" Margin="145,100,-100,0"/>
+            <Button Command="{Binding AddCustomer}"  Content="Ja" FontSize="20" Height="45" Width="150" Margin="-145,100,100,0"/>
+            <Button Command="{Binding Menu}" Content="Nee" FontSize="20" Height="45" Width="150" Margin="145,100,-100,0"/>
         </Grid>
     </Grid>
 </UserControl>

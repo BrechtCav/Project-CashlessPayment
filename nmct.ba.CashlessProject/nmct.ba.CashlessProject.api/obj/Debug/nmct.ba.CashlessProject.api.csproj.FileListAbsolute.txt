@@ -61,3 +61,5 @@ C:\Project\Project-CashlessPayment\nmct.ba.CashlessProject\nmct.ba.CashlessProje
 C:\Project\Project-CashlessPayment\nmct.ba.CashlessProject\nmct.ba.CashlessProject.api\obj\Debug\nmct.ba.CashlessProject.api.csprojResolveAssemblyReference.cache
 C:\Project\Project-CashlessPayment\nmct.ba.CashlessProject\nmct.ba.CashlessProject.api\obj\Debug\nmct.ba.CashlessProject.api.dll
 C:\Project\Project-CashlessPayment\nmct.ba.CashlessProject\nmct.ba.CashlessProject.api\obj\Debug\nmct.ba.CashlessProject.api.pdb
+C:\Project\Project-CashlessPayment\nmct.ba.CashlessProject\nmct.ba.CashlessProject.api\bin\nmct.ba.cashlessproject.model.dll
+C:\Project\Project-CashlessPayment\nmct.ba.CashlessProject\nmct.ba.CashlessProject.api\bin\nmct.ba.cashlessproject.model.pdb

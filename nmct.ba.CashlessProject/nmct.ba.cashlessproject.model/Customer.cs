@@ -11,7 +11,7 @@ namespace nmct.ba.cashlessproject.model
         private int id;
         private string name;
         private string address;
-        private string picture;
+        private byte[] picture;
         private double balance;
         private string nationalnumber;
 
@@ -30,7 +30,7 @@ namespace nmct.ba.cashlessproject.model
             get { return address; }
             set { address = value; }
         }
-        public string Picture
+        public byte[] Picture
         {
             get { return picture; }
             set { picture = value; }

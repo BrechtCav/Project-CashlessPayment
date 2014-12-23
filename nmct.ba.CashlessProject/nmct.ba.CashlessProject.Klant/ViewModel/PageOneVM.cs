@@ -10,7 +10,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
+using System.Drawing;
 using System.Windows.Input;
 
 namespace nmct.ba.CashlessProject.Klant.ViewModel
@@ -18,14 +18,34 @@ namespace nmct.ba.CashlessProject.Klant.ViewModel
     class PageOneVM : ObservableObject, IPage
     {
         ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
-        private const string URL = "http://localhost:25000/api";
+        private const string URL = "http://localhost:20000/api";
         public string Name
         {
             get { return "First page"; }
         }
+        public List<Customer> CustomersDB { get; set; }
         public PageOneVM()
         {
-            GetProductsbycategorie();
+            GetCustomers();
+        }
+
+
+        private bool dbok = false;
+        public bool DBOK
+        {
+            get { return dbok; }
+            set { dbok = value; OnPropertyChanged("DBOK"); }
+        }
+
+
+        public int Loaded = 0;
+        private async void GetCustomers()
+        {
+            int ListCust = await GetCustomersFromDB();
+            if( ListCust == 1 )
+            {
+                Loaded = 1;
+            }
         }
         private string _intro = "Welkom bij KV Kortrijk";
         public string Intro
@@ -39,27 +59,17 @@ namespace nmct.ba.CashlessProject.Klant.ViewModel
             get { return _eidmelding; }
             set { _eidmelding = value; }
         }
-        private string _eidaanwezig = "";
+        private string _eidaanwezig;
         public string EIDAanwezig
         {
             get { return _eidaanwezig; }
-            set { _eidaanwezig = value; }
+            set { _eidaanwezig = value; OnPropertyChanged("EIDAanwezig"); }
         }
         public ICommand EIDLezen
         {
-            get { return new RelayCommand(IsLid); }
+            get { return new RelayCommand(IsAlLid); }
         }
-        public void IsLid()
-        {
-            List<string> lijst = new List<string>();
-            foreach (Customer cust in CustomersDB)
-            {
-                string nn = cust.NationalNumber;
-                lijst.Add(nn);
-            }
-            Test(lijst);
-        }
-        public void Test(List<string> lijst)
+        public void IsAlLid()
         {
 
             try
@@ -74,23 +84,33 @@ namespace nmct.ba.CashlessProject.Klant.ViewModel
 
                 if (Reader.isCardPresent())
                 {
+                    EIDAanwezig = "";
                     if (Reader.getCardType() == BEID_CardType.BEID_CARDTYPE_EID
                         || Reader.getCardType() == BEID_CardType.BEID_CARDTYPE_FOREIGNER
                         || Reader.getCardType() == BEID_CardType.BEID_CARDTYPE_KIDS)
                     {
+
+                        EIDAanwezig = "";
                         Customer test = Load_eid(Reader);
 
-                        foreach (string nn in lijst)
+                        foreach (Customer nn in CustomersDB)
                         {
-                            if (nn.Equals(test.NationalNumber))
+                            if(nn.NationalNumber.Equals(test.NationalNumber))
                             {
-                                Intro = "Gelukt";
+                                AccountVM.Customer = nn;
+                                appvm.ChangePage(new AccountVM());
                             }
                             else
                             {
-                                Intro = "Niet Gelukt";
+                                NewAccountVM.NewCust = test;
+                                appvm.ChangePage(new NewAccountVM());
                             }
                         }
+                    }
+                    else
+                    {
+                        BEID_ReaderSet.releaseSDK();
+                        EIDAanwezig = "Er is een fout bij het lezen van de kaart. Probeer opnieuw.";
                     }
                 }
 
@@ -100,6 +120,7 @@ namespace nmct.ba.CashlessProject.Klant.ViewModel
             catch (BEID_Exception ex)
             {
                 BEID_ReaderSet.releaseSDK();
+                EIDAanwezig = "Gelieve uw eID in het voorziene toestel te steken.";
             }
 
         }
@@ -115,14 +136,18 @@ namespace nmct.ba.CashlessProject.Klant.ViewModel
 
             BEID_EId doc;
             doc = card.getID();
-            IDCust.Address = doc.getStreet();
+            IDCust.Address = doc.getStreet() + " " + doc.getZipCode() + " " + doc.getMunicipality();
             IDCust.Balance = 0;
             IDCust.Name = doc.getFirstName() + " " + doc.getSurname();
             IDCust.NationalNumber = doc.getNationalNumber().ToString();
-            IDCust.Picture = "1";
+            BEID_Picture picture;
+            picture = card.getPicture();
+            byte[] bytearray;
+            bytearray = picture.getData().GetBytes();
+            IDCust.Picture = bytearray;
             return IDCust;
         }
-        public async void GetProductsbycategorie()
+        public async Task<int> GetCustomersFromDB()
         {
             using (HttpClient client = new HttpClient())
             {
@@ -133,14 +158,17 @@ namespace nmct.ba.CashlessProject.Klant.ViewModel
                     string json = await response.Content.ReadAsStringAsync();
                     List<Customer> result = JsonConvert.DeserializeObject<List<Customer>>(json);
                     CustomersDB = result;
+                    DBOK = true;
+                    return 1;
                 }
                 else
                 {
-                    Intro = "Niet Gelukt 2";
+                    return 0;
                 }
             }
+            return 0;
         }
-        public List<Customer> CustomersDB { get; set; }
+
     }
 
 

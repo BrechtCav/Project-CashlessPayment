@@ -4,11 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:nmct.ba.CashlessProject.Klant.ViewModel"
+             xmlns:c="clr-namespace:nmct.ba.CashlessProject.Klant.View.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="470" d:DesignWidth="790">
     <UserControl.DataContext>
         <vm:AccountVM/>
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <c:StringToImageConverter x:Key="StringToImageConverter"/>
+    </UserControl.Resources>
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -42,14 +46,15 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Text="Naam:" FontSize="16" TextAlignment="Left"  Grid.Row="2" Grid.Column="1" />
-        <TextBlock Text="{Binding Naam }" FontSize="16" TextAlignment="Left"  Grid.Row="2" Grid.Column="2" />
+        <TextBlock Text="{Binding Customer.Name }" FontSize="16" TextAlignment="Left"  Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="5" Margin="0.4,0.2,99,0.4" />
         <TextBlock Text="Adres:" FontSize="16" TextAlignment="Left"  Grid.Row="4" Grid.Column="1" />
-        <TextBlock Text="" FontSize="16" TextAlignment="Left"  Grid.Row="4" Grid.Column="2" />
+        <TextBlock Text="{Binding Customer.Address}" FontSize="16" TextAlignment="Left"  Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="5" Margin="0.4,0.2,99,0.4" />
         <TextBlock Text="Saldo:" FontSize="16" TextAlignment="Left"  Grid.Row="6" Grid.Column="1" />
-        <TextBlock Text="" FontSize="16" TextAlignment="Left"  Grid.Row="6" Grid.Column="2" />
+        <TextBlock Text="{Binding Customer.Balance}" FontSize="16" TextAlignment="Left"  Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="5" Margin="0.4,0.2,99,0.4" />
         <TextBlock Text="Foto:" FontSize="16" TextAlignment="Left"  Grid.Row="8" Grid.Column="1" />
-        <Rectangle Grid.Column="2" Fill="#FFF4F4F5"  Grid.Row="8" Stroke="Black" Grid.RowSpan="7" Grid.ColumnSpan="2" />
-        <Button Command="{Binding EIDLezen}"  Content="Geld Opladen"  Grid.Column="5" Grid.Row="9" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
-        <Button  Content="Uitloggen"  Grid.Column="5" Grid.Row="12" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+        <Button Command="{Binding EIDLezen}"  Content="Geld Opladen"  Grid.Column="4" Grid.Row="10" Grid.ColumnSpan="3" Grid.RowSpan="3" Margin="98.8,0,0,26.2"/>
+        <Button Command="{Binding trgt}" Content="Uitloggen"  Grid.Column="4" Grid.Row="12" Grid.ColumnSpan="3" Grid.RowSpan="3" Margin="98.8,26.2,0,0"/>
+        <Image Source="{Binding Customer.Picture, Converter={StaticResource StringToImageConverter}, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2" Grid.Column="2" Margin="0.4,0.2,0.2,0" Grid.Row="8" Grid.RowSpan="9"/>
+
     </Grid>
 </UserControl>

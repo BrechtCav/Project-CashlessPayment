@@ -12,7 +12,7 @@
     <Grid>
         <TextBlock Text="{Binding Intro}" FontSize="30" TextAlignment="Center" Margin="0,120,0,300" />
         <TextBlock Text="{Binding EidMelding}" TextAlignment="Center" Width="790" FontSize="20" Margin="0,250,0,190" />
-        <TextBlock Text="{Binding EIDAanwezig }" TextAlignment="Center" Width="790" FontSize="20" Margin="0,313,0.4,126.4" />
-        <Button Command="{Binding EIDLezen}" Content="Verder" Height="30" Width="100" Margin="0,300,0,0"/>
+        <TextBlock Text="{Binding EIDAanwezig }" TextAlignment="Center" Width="790" FontSize="20" Margin="0,313,0.4,126.4" Foreground="Red" />
+        <Button IsEnabled="{Binding DBOK}"    Name="btnVerder" Command="{Binding EIDLezen}" Content="Verder" Height="30" Width="100" Margin="0,300,0,0"/>
     </Grid>
 </UserControl>

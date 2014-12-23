@@ -1,0 +1,49 @@
+﻿<Window x:Class="nmct.ba.CashlessProject.Management.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:v="clr-namespace:nmct.ba.CashlessProject.Management.View"
+        xmlns:vm="clr-namespace:nmct.ba.CashlessProject.Management.ViewModel"
+        Title="MainWindow" Height="720" Width="1280" MinHeight="720" MinWidth="1280" >
+    <Window.DataContext>
+        <vm:ApplicationVM/>
+    </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:PageOneVM}">
+            <v:PageOne/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:LoginVM}">
+            <v:Login/>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid Height="688.8" Width="1270">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120*"/>
+            <RowDefinition Height="568.8*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Menu Background="#FFB0CF44" Grid.ColumnSpan="6" Grid.RowSpan="1" />
+    <TextBlock x:Name="txbOrganisatie" Grid.Column="4"  HorizontalAlignment="Left" Margin="0,4.04,0,10" TextWrapping="Wrap" Text="Organisatie:" Width="72.207"/>
+    <TextBlock x:Name="txbLogin" Grid.Column="5" HorizontalAlignment="Left" TextWrapping="Wrap" Width="72.207" Margin="0,4.04,0,5.96"><Run Text="Login:"/></TextBlock>
+    <ItemsControl ItemsSource="{Binding Pages}" Grid.ColumnSpan="5" Margin="20,0,0,0">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <StackPanel Orientation="Horizontal" Margin="0"/>
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <Button Content="{Binding Name}" Command="{Binding DataContext.ChangePageCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding}"
+                            Margin="20" Width="120" Background="White" Height="40" Grid.ColumnSpan="5" />
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+    <ContentControl Grid.Row="1" Content="{Binding CurrentPage}" Grid.ColumnSpan="6" />
+    </Grid>
+</Window>
