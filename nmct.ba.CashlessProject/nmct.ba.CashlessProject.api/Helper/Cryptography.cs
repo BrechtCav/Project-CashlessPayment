@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace nmct.ba.demo.apicall.helper
+namespace nmct.ba.CashlessProject.api.Helper
 {
     public class Cryptography
     {

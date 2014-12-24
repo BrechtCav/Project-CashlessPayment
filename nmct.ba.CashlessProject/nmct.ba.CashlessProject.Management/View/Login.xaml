@@ -4,11 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:nmct.ba.CashlessProject.Management.ViewModel"
+             xmlns:p="clr-namespace:nmct.ba.CashlessProject.Management.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="568.8" d:DesignWidth="1270">
     <UserControl.DataContext>
         <vm:LoginVM/>
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <p:PasswordBoxAssistant x:Key="PasswordBoxAssistant"/>
+    </UserControl.Resources>
     <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>
@@ -35,6 +39,13 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button Command="{Binding test}" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="282" Grid.Column="3" Margin="0.4,10.2,0,0" Grid.Row="5" Grid.RowSpan="2" Grid.ColumnSpan="2" Height="45"/>
+        <TextBox Text="{Binding Username}" Margin="243.4,37.4,1.4,0.8" Grid.ColumnSpan="3" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" FontSize="20"/>
+        <PasswordBox x:Name="PasswordBox"
+      p:PasswordBoxAssistant.BindPassword="true"  p:PasswordBoxAssistant.BoundPassword="{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Margin="0.4,0.2,0.4,0.4" Grid.Row="5" Grid.ColumnSpan="2" FontSize="20"/>
+
+        <Button Content="Aanmelden" Command="{Binding LoginCommand}" Margin="0.4,0.6,244.4,0.8" Grid.Column="3" Grid.Row="8" Grid.ColumnSpan="2"/>
+        <TextBlock Foreground="Red" Text="{Binding Error}" Grid.Column="2" Margin="243.4,0.2,1.4,37.8" Grid.Row="11" Grid.RowSpan="2" Grid.ColumnSpan="3"/>
+        <TextBlock Grid.Column="2"  HorizontalAlignment="Left" Margin="0.4,2.8,0,0" Grid.Row="2" Grid.RowSpan="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" Grid.ColumnSpan="2" Height="39" FontSize="20"><Run Text="Login"/><Run Text=":"/></TextBlock>
+        <TextBlock Grid.Column="2"  HorizontalAlignment="Left" Margin="0.4,4.2,0,0" Grid.Row="5" Grid.RowSpan="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" Grid.ColumnSpan="2" Height="39" FontSize="20"><Run Text="Paswoord"/><Run Text=":"/></TextBlock>
     </Grid>
 </UserControl>

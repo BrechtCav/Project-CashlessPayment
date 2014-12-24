@@ -4,11 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:nmct.ba.CashlessProject.Management.ViewModel"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:p="clr-namespace:nmct.ba.CashlessProject.Management.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="568.8" d:DesignWidth="1270">
     <UserControl.DataContext>
         <vm:PageOneVM/>
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <p:BoolToVisibility x:Key="BoolToVisibility"/>
+    </UserControl.Resources>
     <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>
@@ -36,20 +41,32 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Label x:Name="lblSelecteerCategorie" Content="Selecteer een categorie" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"/>
-        <ComboBox  x:Name="cboSelecteerCategorie" Width="244" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Height="25"/>
-        <Label x:Name="lblSelecteerProduct" Content="Selecteer een product" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center"/>
-        <ListBox  x:Name="lstSelecteerProduct" HorizontalAlignment="Left" Height="303.36" Grid.RowSpan="8" VerticalAlignment="Top" Width="244" Grid.Column="1" Grid.Row="4"  />
-        <Button x:Name="btnNieuwProduct" Content="Nieuw product" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" Width="155" Height="25" HorizontalAlignment="Left" />
-        <Button x:Name="btnWijzigProduct" IsEnabled="False" Content="Wijzig product" Grid.Column="4" VerticalAlignment="Center" Width="155" Height="25" HorizontalAlignment="Center" Grid.Row="1"/>
-        <Button x:Name="btnVerwijderProduct" Content="Verwijder product" Grid.Column="1" Grid.Row="13" VerticalAlignment="Center" Width="155" Height="25" HorizontalAlignment="Center"  Margin="0,6.46,89,6.46" />
+        <ComboBox IsEnabled="{Binding CategorieLijst}" SelectedItem="{Binding ProductCategorie}" ItemsSource="{Binding Categorie}"  x:Name="cboSelecteerCategorie" Width="244" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Height="25">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding GetProductencbo}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
+        <Label x:Name="lblSelecteerProduct" Content="Selecteer een product" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center"></Label>
+        <ListBox IsEnabled="{Binding Productlijst}" SelectedItem="{Binding GekozenProduct}" ItemsSource="{Binding Producten}" x:Name="lstSelecteerProduct" HorizontalAlignment="Left" Height="303.36" Grid.RowSpan="8" VerticalAlignment="Top" Width="244" Grid.Column="1" Grid.Row="4">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding ToonGekozenProductlst}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ListBox>
+        <Button Command="{Binding NieuwProductButton}" IsEnabled="{Binding NieuwProduct}" x:Name="btnNieuwProduct" Content="Nieuw product" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" Width="155" Height="25" HorizontalAlignment="Left" />
+        <Button Command="{Binding WijzigProductButton}" IsEnabled="{Binding WijzigProduct}" x:Name="btnWijzigProduct" Content="Wijzig product" Grid.Column="4" VerticalAlignment="Center" Width="155" Height="25" HorizontalAlignment="Center" Grid.Row="1"/>
+        <Button Command="{Binding VerwijderGekozenProduct}" IsEnabled="{Binding VerwijderProduct}" x:Name="btnVerwijderProduct" Content="Verwijder product" Grid.Column="1" Grid.Row="13" VerticalAlignment="Center" Width="155" Height="25" HorizontalAlignment="Center"  Margin="0,6.46,89,6.46" />
         <Label x:Name="lblProductNaam" Content="Naam" Grid.Column="3" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" Height="23.9" Width="75.86"/>
-        <TextBox  x:Name="txtProductPrijs" Grid.Column="3" HorizontalAlignment="Left" Height="23" Grid.Row="6" TextWrapping="Wrap" VerticalAlignment="Center" Width="244" />
+        <TextBox IsEnabled="{Binding InfoProduct}" Text="{Binding ProductNaam}"  x:Name="txtProductNaam" Grid.Column="3" HorizontalAlignment="Left" Height="23" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" Width="244" />
+        <TextBox IsEnabled="{Binding InfoProduct}"  Text="{Binding ProductPrijs}"  x:Name="txtProductPrijs" Grid.Column="3" HorizontalAlignment="Left" Height="23" Grid.Row="6" TextWrapping="Wrap" VerticalAlignment="Center" Width="244" />
+        <ComboBox  IsEnabled="{Binding InfoProduct}"  SelectedItem="{Binding CategorieProduct}" ItemsSource="{Binding CategorieProductList}"  x:Name="cboSelecteerProductCategorie" Grid.Column="3" HorizontalAlignment="Left" Grid.Row="8" VerticalAlignment="Center" Width="244" Margin="0.4,8.6,0,8.8"  Grid.ColumnSpan="2"/>
         <Label x:Name="lblProductPrijs" Content="Prijs" Grid.Column="3" HorizontalAlignment="Left" Grid.Row="5" VerticalAlignment="Center"/>
-        <TextBox  x:Name="txtProductNaam" Grid.Column="3" HorizontalAlignment="Left" Height="23" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" Width="244" />
         <Label x:Name="lblProductCategorie" Content="Categorie" Grid.Column="3" HorizontalAlignment="Left" Grid.Row="7" VerticalAlignment="Center"/>
-        <ComboBox  x:Name="cboSelecteerProductCategorie" Grid.Column="3" HorizontalAlignment="Left" Grid.Row="8" VerticalAlignment="Center" Width="244" Margin="0.4,8.6,0,8.8"  Grid.ColumnSpan="2"/>
-        <Button x:Name="btnProductOpslaan"  Content="Opslaan" Grid.Column="3" Grid.Row="13" VerticalAlignment="Center" Width="155" Height="25" HorizontalAlignment="Center" Margin="0,6.46,89,6.46" />
-        <Button x:Name="btnProductAnnuleren" Content="Annuleren" Grid.Column="4" VerticalAlignment="Center" Width="155" Height="25" HorizontalAlignment="Center" Grid.Row="13" Margin="44.5,6.46" />
-        <Button x:Name="btnProductWijzigenOpslaan"  Content="Opslaan" Grid.Column="3" Grid.Row="13" VerticalAlignment="Center" Width="155" Height="25" HorizontalAlignment="Center" Margin="0,6.3,89,6.3" />
+        <Button Command="{Binding OpslaanProductenButton}"  Visibility="{Binding OpslaanProduct, Converter={StaticResource BoolToVisibility}}" x:Name="btnProductOpslaan"  Content="Opslaan" Grid.Column="3" Grid.Row="13" VerticalAlignment="Center" Width="155" Height="25" HorizontalAlignment="Center" Margin="0,6.46,89,6.46" />
+        <Button Command="{Binding AnnulerenProductButton}"  Visibility="{Binding AnnulerenProduct, Converter={StaticResource BoolToVisibility}}"   x:Name="btnProductAnnuleren" Content="Annuleren" Grid.Column="4" VerticalAlignment="Center" Width="155" Height="25" HorizontalAlignment="Center" Grid.Row="13" Margin="44.5,6.46" />
+        <TextBlock Grid.Column="3" HorizontalAlignment="Left" Margin="0.4,10.6,0,0" Grid.Row="10" TextWrapping="Wrap" Text="{Binding FoutMelding}" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="244" Foreground="Red"/>
     </Grid>
 </UserControl>

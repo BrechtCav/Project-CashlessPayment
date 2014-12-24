@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nmct.ba.CashlessProject.Kla
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nmct.ba.cashlessproject.model", "nmct.ba.cashlessproject.model\nmct.ba.cashlessproject.model.csproj", "{BF36B47C-70FC-440A-B52B-F556C01A522A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nmct.ba.CashlessProject.api", "nmct.ba.CashlessProject.api\nmct.ba.CashlessProject.api.csproj", "{21B77B88-9B0D-4E8C-B278-FB4FF4FA8EC4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nmct.ba.CashlessProject.Management", "nmct.ba.CashlessProject.Management\nmct.ba.CashlessProject.Management.csproj", "{F6CC390E-3B9D-448D-8C48-B9FC98BF9609}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nmct.ba.CashlessProject.api", "nmct.ba.CashlessProject.api\nmct.ba.CashlessProject.api.csproj", "{D1DD802E-5D48-4B72-B570-126D43C92883}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,14 +25,14 @@ Global
 		{BF36B47C-70FC-440A-B52B-F556C01A522A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF36B47C-70FC-440A-B52B-F556C01A522A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF36B47C-70FC-440A-B52B-F556C01A522A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{21B77B88-9B0D-4E8C-B278-FB4FF4FA8EC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{21B77B88-9B0D-4E8C-B278-FB4FF4FA8EC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{21B77B88-9B0D-4E8C-B278-FB4FF4FA8EC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{21B77B88-9B0D-4E8C-B278-FB4FF4FA8EC4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F6CC390E-3B9D-448D-8C48-B9FC98BF9609}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F6CC390E-3B9D-448D-8C48-B9FC98BF9609}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6CC390E-3B9D-448D-8C48-B9FC98BF9609}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6CC390E-3B9D-448D-8C48-B9FC98BF9609}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1DD802E-5D48-4B72-B570-126D43C92883}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1DD802E-5D48-4B72-B570-126D43C92883}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1DD802E-5D48-4B72-B570-126D43C92883}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1DD802E-5D48-4B72-B570-126D43C92883}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

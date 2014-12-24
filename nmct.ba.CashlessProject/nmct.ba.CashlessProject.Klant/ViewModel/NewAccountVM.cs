@@ -14,7 +14,7 @@ namespace nmct.ba.CashlessProject.Klant.ViewModel
     class NewAccountVM : ObservableObject, IPage
     {
         ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
-        private const string URL = "http://localhost:20000/api";
+        private const string URL = "http://localhost:7695/api";
         public string Name
         {
             get { return "New Account"; }

@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="nmct.ba.CashlessProject.api.WebApiApplication" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="nmct.ba.CashlessProject.api.MvcApplication" Language="C#" %>
