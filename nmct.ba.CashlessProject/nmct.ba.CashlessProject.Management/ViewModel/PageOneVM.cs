@@ -177,7 +177,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
 
         #endregion
 
-        #region Icommands
+        #region ICommands
         //ICommand voor ophalen producten volgens categorie
         public ICommand GetProductencbo
         {
@@ -222,7 +222,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
 
         #endregion
 
-        #region voids
+        #region Voids
         //Verkrijgen Categorien
         private async void GetCat()
         {
@@ -465,7 +465,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
                 if (response.IsSuccessStatusCode)
                 {
                     string json = await response.Content.ReadAsStringAsync();
-                    List<Categorie> result = JsonConvert.DeserializeObject<List<Categorie>>(json);
+                    List<Categorie> result = JsonConvert.DeserializeObject<List<Categorie>>(json).OrderBy(o => o.Name).ToList();
                     Categorie = result;
                     CategorieProductList = result;
                     return result;
@@ -475,7 +475,6 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
                     return null;
                 }
             }
-            return null;
         }
         //Ophalen producten per categorie.
         public async Task<List<Product>> GetProductsbycategorie(int id)
@@ -487,10 +486,12 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
                 HttpResponseMessage response = await client.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
-                    string json = await response.Content.ReadAsStringAsync();
                     Producten = null;
-                    Producten = JsonConvert.DeserializeObject<List<Product>>(json);
+                    string json = await response.Content.ReadAsStringAsync();
+                    List<Product> sortedProduct= JsonConvert.DeserializeObject<List<Product>>(json);
+                    Producten = sortedProduct.OrderBy(o => o.ProductName).ToList();
                     return Producten;
+
                 }
             }
             return null;

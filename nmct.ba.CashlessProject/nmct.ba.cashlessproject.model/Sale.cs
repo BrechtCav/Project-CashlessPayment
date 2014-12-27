@@ -51,6 +51,9 @@ namespace nmct.ba.cashlessproject.model
             get { return totalprice; }
             set { totalprice = value; }
         }
-
+        public override string ToString()
+        {
+            return "Op " + Timestamp + " kocht " + CustomerID.Name + " bij " + RegisterID.RegisterName + " " + Amount + " " + ProductID.ProductName + " voor een totaal prijs van " + Totalprice;
+        }
     }
 }

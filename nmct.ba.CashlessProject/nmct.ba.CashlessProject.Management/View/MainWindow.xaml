@@ -16,6 +16,18 @@
         <DataTemplate DataType="{x:Type vm:LoginVM}">
             <v:Login/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:MedewerkerVM}">
+            <v:Medewerker/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:KassaVM}">
+            <v:Kassa/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:KlantVM}">
+            <v:Klant/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:StatistiekVM}">
+            <v:Statistiek/>
+        </DataTemplate>
     </Window.Resources>
     <Grid Height="688.8" Width="1270">
         <Grid.RowDefinitions>
@@ -72,6 +84,7 @@
             <TextBlock x:Name="txbOrganisatie"  Text="Organisatie:" Grid.ColumnSpan="2" Grid.Column="12" TextAlignment="Left" Margin="0.2,0,0.4,0" />
             <TextBlock x:Name="txbOrganisatiegekozen"  Text="{Binding Organisatie}" Grid.ColumnSpan="2" Grid.Column="12" TextAlignment="Left" Margin="0.2,0,0.4,0" Grid.Row="1" />
             <Button Command="{Binding LogOff}" Content="Uitloggen" Grid.Column="12" HorizontalAlignment="Left" Margin="0.2,0,0,0" Grid.Row="3" VerticalAlignment="Top" Width="181" Grid.ColumnSpan="2" Height="20" />
+            <TextBlock   Text="{Binding Tijd}" Grid.ColumnSpan="2" Grid.Column="12" TextAlignment="Left" Margin="0.2,0,0.4,0" Grid.Row="5" />
         </Grid>
         <ContentControl Grid.Row="1" Content="{Binding CurrentPage}" Grid.ColumnSpan="6" />
     </Grid>

@@ -45,6 +45,18 @@ namespace nmct.ba.CashlessProject.api.Models
             reader.Close();
             return resultaat;
         }
+        public static Product GetProduct(int id, IEnumerable<Claim> claims)
+        {
+            Product resultaat = new Product();
+            string sql = "SELECT * FROM Product WHERE ID = " + id;
+            DbDataReader reader = Database.GetData(Database.GetConnection(CreateConnectionString(claims)), sql);
+            while (reader.Read())
+            {
+                resultaat = Create(reader);
+            }
+            reader.Close();
+            return resultaat;
+        }
         public static int SaveProduct(Product newProduct, IEnumerable<Claim> claims)
         {
             string sql = "INSERT INTO Product VALUES(@Name,@Price,@CategorieID)";

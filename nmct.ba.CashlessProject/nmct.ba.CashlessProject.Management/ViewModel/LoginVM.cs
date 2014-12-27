@@ -58,6 +58,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
                 appvm.MenuVisibility = true;
                 appvm.ChangePage(new PageOneVM());
                 appvm.GetDBInfo();
+                appvm.klok();
             }
             else
             {

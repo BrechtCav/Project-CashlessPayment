@@ -3,11 +3,13 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Threading;
 using Thinktecture.IdentityModel.Client;
 
 namespace nmct.ba.CashlessProject.Management.ViewModel
@@ -20,6 +22,10 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
         {
             StartPages.Add(new LoginVM());
             Pages.Add(new PageOneVM());
+            Pages.Add(new MedewerkerVM());
+            Pages.Add(new KassaVM());
+            Pages.Add(new KlantVM());
+            Pages.Add(new StatistiekVM());
             // Add other pages
 
             CurrentPage = StartPages[0];
@@ -29,6 +35,27 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
         {
             get { return organisatie; }
             set { organisatie = value; OnPropertyChanged("Organisatie"); }
+        }
+        private string tijd = "";
+        public string Tijd
+        {
+            get { return tijd; }
+            set { tijd = value; OnPropertyChanged("Tijd"); }
+        }
+        DispatcherTimer dispatcherTimer = new DispatcherTimer();
+        int test = 0;
+        public void klok()
+        {
+            dispatcherTimer.Tick += new EventHandler(this.kloktik);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Start();
+        }
+
+        private void kloktik(object sender, EventArgs e)
+        {
+            test +=1;
+            string dag = DateTimeFormatInfo.CurrentInfo.GetDayName(DateTime.Now.DayOfWeek);
+            Tijd = char.ToUpper(dag[0]) + dag.Substring(1) +" " + DateTime.Now.ToString();
         }
         public async void GetDBInfo()
         {

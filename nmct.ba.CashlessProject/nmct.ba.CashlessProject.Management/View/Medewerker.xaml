@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="nmct.ba.CashlessProject.Management.View.Medewerker"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:nmct.ba.CashlessProject.Management.ViewModel"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:p="clr-namespace:nmct.ba.CashlessProject.Management.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="568.8" d:DesignWidth="1270">
+    <UserControl.DataContext>
+        <vm:MedewerkerVM/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <p:BoolToVisibility x:Key="BoolToVisibility"/>
+    </UserControl.Resources>
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="244*"/>
+            <ColumnDefinition Width="244*"/>
+            <ColumnDefinition Width="244*"/>
+            <ColumnDefinition Width="245*"/>
+            <ColumnDefinition Width="244"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label x:Name="lblMedewerkerSelecteer" Content="Selecteer een medewerker" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"/>
+        <ListBox SelectedItem="{Binding SelectedEmployee}" ItemsSource="{Binding ListEmployees}" IsEnabled="{Binding LijstEnable}"  x:Name="lstMedewerkerSelecteer" HorizontalAlignment="Left" Height="379.2" Grid.RowSpan="10" VerticalAlignment="Top" Width="244" Grid.Column="1" Grid.Row="2">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding ToonGekozenMedewerker}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ListBox>
+        <Button Command="{Binding btnNieuw }" IsEnabled="{Binding NieuwEnable}" x:Name="btnMedewerkerNieuw" Content="Nieuwe medewerker" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" Width="155" Height="25" HorizontalAlignment="Left" />
+        <Button Command="{Binding btnWijzig }" IsEnabled="{Binding WijzigEnable}" x:Name="btnMedewerkerWijzig" Content="Wijzig medewerker" Grid.Column="4" VerticalAlignment="Center" Width="155" Height="25" HorizontalAlignment="Center" Grid.Row="1" />
+        <Button Command="{Binding btnVerwijder}" IsEnabled="{Binding Verwijderenable}"  x:Name="btnMedewerkerVerwijder" Content="Verwijder medewerker" Grid.Column="1" Grid.Row="13" VerticalAlignment="Center" Width="155" Height="25" HorizontalAlignment="Center" Margin="0,6.46,89,6.46" />
+        <Label x:Name="lblMedewerkerNaam" Content="Naam" Grid.Column="3" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Center" Height="23.9" Width="75.86" Margin="0,7.03,0,6.99"/>
+        <TextBox Text="{Binding EmployeeName}" IsEnabled="{Binding TXTEnable}" x:Name="txtMedewerkerNaam" Grid.Column="3" HorizontalAlignment="Left" Height="23" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center" Width="244" Margin="0,7.48,0,7.44"/>
+        <TextBox Text="{Binding EmployeeAdres}" IsEnabled="{Binding TXTEnable}" x:Name="txtMedewerkerAdres" Grid.Column="3" HorizontalAlignment="Left" Height="23" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Center" Width="244" Margin="1.4,7.2,0,7.4" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding EmployeeEmail}" IsEnabled="{Binding TXTEnable}" x:Name="txtMedewerkerEmail" Grid.Column="3" HorizontalAlignment="Left" Height="23" Grid.Row="7" TextWrapping="Wrap" VerticalAlignment="Center" Width="244" Margin="0,6.44,0,8.48"/>
+        <TextBox Text="{Binding EmployeeTel}" IsEnabled="{Binding TXTEnable}" x:Name="txtMedewerkerTel" Grid.Column="3" HorizontalAlignment="Left" Height="23" Grid.Row="9" TextWrapping="Wrap" VerticalAlignment="Center" Width="244" Margin="0,6.44,0,8.48"/>
+        <Label x:Name="lblMedewerkerAdres" Content="Adres" Grid.Column="3" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" Margin="0,6,0,5.96"/>
+        <Label x:Name="lblMedewerkerEmail" Content="Email" Grid.Column="3" HorizontalAlignment="Left" Grid.Row="6" VerticalAlignment="Center" Margin="0,6,0,5.96"/>
+        <Button Command="{Binding btnOpslaan }" Visibility="{Binding OpslaanAnnulerenEnable, Converter={StaticResource BoolToVisibility}}" x:Name="btnMedewerkerWijzigOpslaan"  Content="Opslaan" Grid.Column="3" Grid.Row="13" VerticalAlignment="Center" Width="155" Height="25" HorizontalAlignment="Center" Margin="0,6.3,89,6.3" />
+        <Button Command="{Binding btnAnnuleren}" Visibility="{Binding OpslaanAnnulerenEnable, Converter={StaticResource BoolToVisibility}}"  x:Name="btnMedewerkerAnnuleren" Content="Annuleren" Grid.Column="4" VerticalAlignment="Center" Width="155" Height="25" HorizontalAlignment="Center" Grid.Row="13" Margin="44.5,6.46" />
+        <Label x:Name="lblMedewerkerTel" Content="Tel." Grid.Column="3" HorizontalAlignment="Left" Grid.Row="8" VerticalAlignment="Center" Margin="0,4.96,0,7"/>
+        <TextBlock Grid.Column="3" HorizontalAlignment="Left" Margin="0.4,0.2,0,0" Grid.Row="11" TextWrapping="Wrap" Text="{Binding FoutMelding}" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="37" Width="488" Foreground="#FFFF0404"/>
+    </Grid>
+</UserControl>
