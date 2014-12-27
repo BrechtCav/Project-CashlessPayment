@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using nmct.ba.cashlessproject.model;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -21,11 +22,15 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
         }
         public StatistiekVM()
         {
+            if(ApplicationVM.token != null)
+            {
+                Getlistsales();
+            }
         }
-        private async void test()
+        private async void Getlistsales()
         {
-            await GetList();
-            ZoekOpdracht();
+            await GetProducts();
+            await GetRegisters();
         }
         private Nullable<DateTime> fromdate;
         public Nullable<DateTime> FromDate
@@ -57,61 +62,49 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
             get { return kassalist; }
             set { kassalist = value; OnPropertyChanged("KassaList"); }
         }
+        private List<Product> productlist;
+        public List<Product> ProductList
+        {
+            get { return productlist; }
+            set { productlist = value; OnPropertyChanged("ProductList"); }
+        }
         private List<Sale> resultaten;
         public List<Sale> Resultaten
         {
             get { return resultaten; }
             set { resultaten = value; OnPropertyChanged("Resultaten"); }
         }
+        private List<Sale> eindresultaat;
+        public List<Sale> EindResultaat
+        {
+            get { return eindresultaat; }
+            set { eindresultaat = value; OnPropertyChanged("EindResultaat"); }
+        }
         
         public ICommand Zoek
         {
-            get { return new RelayCommand(test); }
+            get { return new RelayCommand(ZoekOpdracht); }
         }
         private async void ZoekOpdracht()
         {
-            int Productid;
-            int Kassaid;
-            Nullable<DateTime> From;
-            Nullable<DateTime> Until;
+            List<Sale> lijst = await GetSales();
             if(SelectedProduct != null)
             {
-                Productid = SelectedProduct.ID;
-            }
-            else
-            {
-                Productid = 0;
+                lijst = lijst.FindAll(s => s.ProductID.ID == selectedproduct.ID);
             }
             if(SelectedKassa != null)
             {
-                Kassaid = SelectedKassa.RegisterID;
-            }
-            else
-            {
-                Kassaid = 0;
+                lijst = lijst.FindAll(s => s.RegisterID.RegisterID == SelectedKassa.RegisterID);
             }
             if(FromDate != null)
             {
-                From = FromDate;
-            }
-            else
-            {
-                From = null;
+                lijst = lijst.FindAll(s => s.Timestamp >= FromDate);
             }
             if(UntilDate != null)
             {
-                Until = UntilDate;
+                lijst = lijst.FindAll(s => s.Timestamp <= UntilDate);
             }
-            else
-            {
-                Until = null;
-            }
-            List<Sale> saleslist =  await GetSales();
-            foreach(Sale sa in saleslist)
-            {
-                    Resultaten.Add(sa);
-                
-            }
+            EindResultaat = lijst;
         }
         //Ophalen producten per categorie.
         public async Task<List<Sale>> GetSales()
@@ -126,12 +119,13 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
                     Resultaten = null;
                     string json = await response.Content.ReadAsStringAsync();
                     List<Sale> result = JsonConvert.DeserializeObject<List<Sale>>(json);
+                    Resultaten = result;
                     return result;
                 }
             }
             return null;
         }
-        public async Task<List<Register>> GetList()
+        public async Task<List<Register>> GetRegisters()
         {
             using (HttpClient client = new HttpClient())
             {
@@ -142,8 +136,30 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
                 {
                     string json = await response.Content.ReadAsStringAsync();
                     List<Register> result = JsonConvert.DeserializeObject<List<Register>>(json);
-                    KassaList = result;
-                    return result;
+                    KassaList = result.OrderBy(o => o.RegisterName).ToList();
+                    return KassaList;
+                }
+            }
+            return null;
+        }
+        //Ophalen producten per categorie.
+        public async Task<List<Product>> GetProducts()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.SetBearerToken(ApplicationVM.token.AccessToken);
+                string url = string.Format("{0}{1}", URL, "/product/");
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    List<Product> prod = new List<Product>();
+                    ProductList = null;
+                    string json = await response.Content.ReadAsStringAsync();
+                    List<Product> sortedProduct = JsonConvert.DeserializeObject<List<Product>>(json);
+                    prod = sortedProduct.OrderBy(o => o.ProductName).ToList();
+                    ProductList = prod;
+                    return ProductList;
+
                 }
             }
             return null;

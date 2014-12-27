@@ -38,7 +38,7 @@ namespace nmct.ba.CashlessProject.api.Models
             return new Sale()
             {
                 ID = Convert.ToInt32(record["ID"]),
-                Timestamp = DateTime.Now,
+                Timestamp = Convert.ToDateTime(record["TimeOfSale"]),
                 ProductID = ProductDA.GetProduct(Convert.ToInt32(record["ProductID"]), claims),
                 CustomerID = CustomerMADA.GetCustomer(Convert.ToInt32(record["CustomerID"]), claims),
                 RegisterID = RegisterDA.GetRegister(Convert.ToInt32(record["RegisterID"]), claims),

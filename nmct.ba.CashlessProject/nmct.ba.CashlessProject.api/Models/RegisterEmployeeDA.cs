@@ -21,10 +21,10 @@ namespace nmct.ba.CashlessProject.api.Models
 
             return Database.CreateConnectionString("System.Data.SqlClient", @"BRECHT", dbname, dblogin, dbpass);
         }
-        public static List<Register_Employee> GetRegisterEmployees(IEnumerable<Claim> claims)
+        public static List<Register_Employee> GetRegisterEmployees(int id,IEnumerable<Claim> claims)
         {
             List<Register_Employee> resultaat = new List<Register_Employee>();
-            DbDataReader reader = Database.GetData(Database.GetConnection(CreateConnectionString(claims)), "SELECT * FROM Register_Employee");
+            DbDataReader reader = Database.GetData(Database.GetConnection(CreateConnectionString(claims)), "SELECT * FROM Register_Employee where RegisterID =" + id);
             while (reader.Read())
             {
                 resultaat.Add(Create(reader, claims));

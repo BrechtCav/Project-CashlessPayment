@@ -12,10 +12,10 @@ namespace nmct.ba.CashlessProject.api.Controllers
 {
     public class RegisterEmployeeController : ApiController
     {
-        public List<Register_Employee> Get()
+        public List<Register_Employee> Get(int id)
         {
             ClaimsPrincipal p = Request.GetRequestContext().Principal as ClaimsPrincipal;
-            return RegisterEmployeeDA.GetRegisterEmployees(p.Claims);
+            return RegisterEmployeeDA.GetRegisterEmployees(id,p.Claims);
         }
     }
 }

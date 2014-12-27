@@ -124,6 +124,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
 
         private async void KassaTonen()
         {
+            Aanmeldlijst = null;
             Naam = GekozenKassa.RegisterName;
             Locatie = GekozenKassa.Location;
             Toestel = GekozenKassa.Device;
@@ -145,6 +146,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
                 HttpResponseMessage response = await client.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
+                    Aanmeldlijst = null;
                     string json = await response.Content.ReadAsStringAsync();
                     List<Register_Employee> result = JsonConvert.DeserializeObject<List<Register_Employee>>(json);
                     Aanmeldlijst = result;
