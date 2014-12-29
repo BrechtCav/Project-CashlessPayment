@@ -19,7 +19,7 @@ namespace nmct.ba.CashlessProject.api.Models
             {
                 DbDataReader reader = Database.GetData(Database.GetConnection("AdminDB"), sql, par1, par2);
                 reader.Read();
-                return new Organisation()
+                Organisation org =  new Organisation()
                 {
                     ID = Int32.Parse(reader["ID"].ToString()),
                     Login = reader["Login"].ToString(),
@@ -33,6 +33,7 @@ namespace nmct.ba.CashlessProject.api.Models
                     Phone = reader["Phone"].ToString()
                 };
                 reader.Close();
+                return org;
             }
             catch (Exception ex)
             {
@@ -40,6 +41,34 @@ namespace nmct.ba.CashlessProject.api.Models
                 return null;
             }
 
+        }
+        public static Employee CheckCredentialsME(string username, string password)
+        {
+            string sql = "SELECT * FROM Scouts.dbo.Employee WHERE Login=@Login AND Password=@Password";
+            DbParameter par1 = Database.AddParameter("ConnectionString", "@Login", username);
+            DbParameter par2 = Database.AddParameter("ConnectionString", "@Password", password);
+            try
+            {
+                DbDataReader reader = Database.GetData(Database.GetConnection("ConnectionString"), sql, par1, par2);
+                reader.Read();
+                Employee emp = new Employee()
+                {
+                    
+                    ID = Int32.Parse(reader["ID"].ToString()),
+                    EmployeeName = reader["EmployeeName"].ToString(),
+                    Address = reader["Address"].ToString(),
+                    Email = reader["Email"].ToString(),
+                    Phone = reader["Phone"].ToString(),
+                };
+                reader.Close();
+                return emp;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+            
         }
     }
 }

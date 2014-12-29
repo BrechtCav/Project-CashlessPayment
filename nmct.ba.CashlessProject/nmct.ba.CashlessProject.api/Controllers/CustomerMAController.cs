@@ -19,7 +19,8 @@ namespace nmct.ba.CashlessProject.api.Controllers
         }
         public int Put(Customer changecustomer)
         {
-            return 1;
+            ClaimsPrincipal p = Request.GetRequestContext().Principal as ClaimsPrincipal;
+            return CustomerMADA.ChangeCustomer(changecustomer, p.Claims);
         }
     }
 }

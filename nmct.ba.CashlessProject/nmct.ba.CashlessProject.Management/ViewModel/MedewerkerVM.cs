@@ -91,23 +91,25 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
 
 
         #endregion
+
         #region Data
+        //Wijzigen of nieuw
         int ToggleWijzigNieuw;
-        //
+        // Geselecteerde medewerker
         private Employee selectedemployee = null;
         public Employee SelectedEmployee
         {
             get { return selectedemployee; }
             set { selectedemployee = value; OnPropertyChanged("SelectedEmployee"); }
         }
-
+        //Lijst Medewerkers
         private List<Employee> listemployees;
         public List<Employee> ListEmployees
         {
             get { return listemployees; }
             set { listemployees = value; OnPropertyChanged("ListEmployees"); }
         }
-
+        //Name Medewerker
         private string employeename;
         public string EmployeeName
         {
@@ -115,7 +117,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
             set { employeename = value; OnPropertyChanged("EmployeeName"); }
         }
 
-        
+        //Adres Medewerker
         private string employeeadres;
         public string EmployeeAdres
         {
@@ -123,7 +125,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
             set { employeeadres = value; OnPropertyChanged("EmployeeAdres"); }
         }
 
-
+        //Mail Medewerker
         private string employeeemail;
         public string EmployeeEmail
         {
@@ -131,14 +133,14 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
             set { employeeemail = value; OnPropertyChanged("EmployeeEmail"); }
         }
 
-
+        //Nummer Medewerker
         private string employeetel;
         public string EmployeeTel
         {
             get { return employeetel; }
             set { employeetel = value; OnPropertyChanged("EmployeeTel"); }
         }
-
+        //Foutmelding
         private string foutmelding;
         public string FoutMelding
         {
@@ -146,43 +148,41 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
             set { foutmelding = value; OnPropertyChanged("FoutMelding"); }
         }
 
-
-
-
-
-
         #endregion
+
         #region ICommands
 
 
+        //ICommand Nieuw
         public ICommand btnNieuw
         {
-            get { return new RelayCommand(NieuwProduct); }
+            get { return new RelayCommand(NieuwMedewerker); }
         }
 
 
+        //ICommand Wijzigen
         public ICommand btnWijzig
         {
-            get { return new RelayCommand(WijzigProduct); }
+            get { return new RelayCommand(WijzigMedewerker); }
         }
-
+        //ICommand Opslaan
         public ICommand btnOpslaan
         {
-            get { return new RelayCommand(ProductOpslaan); }
+            get { return new RelayCommand(MedewerkerOpslaan); }
         }
-
+        //ICommand Annuleren
         public ICommand btnAnnuleren
         {
-            get { return new RelayCommand(ProductAnnuleren); }
+            get { return new RelayCommand(MedewerkerAnnuleren); }
         }
-
+        //ICommand verwijderen
         public ICommand btnVerwijder
         {
-            get { return new RelayCommand(ProductVerwijderen); }
+            get { return new RelayCommand(MedewerkerVerwijderen); }
         }
 
 
-        //ICommand voor lijst tonen
+        //ICommand voor tonen info gekozen medewerker
         public ICommand ToonGekozenMedewerker
         {
             get { return new RelayCommand(ToonMedewerker); }
@@ -190,7 +190,9 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
 
 
         #endregion
+
         #region Voids
+        //Method Tonen medewerker info
         private void ToonMedewerker()
         {
             if(SelectedEmployee != null)
@@ -203,12 +205,13 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
                 EmployeeTel = SelectedEmployee.Phone;
             }
         }
+        //Method ophalen medewerkerlijst
         private async void GetEmployeeList()
         {
             await GetEmployees();
         }
-
-        private void NieuwProduct()
+        //Method Nieuwe Medewerker
+        private void NieuwMedewerker()
         {
             ToggleWijzigNieuw = 0;
             EmployeeAdres = "";
@@ -223,7 +226,8 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
             Verwijderenable = false;
             TXTEnable = true;
         }
-        private void WijzigProduct()
+        //Method Medewerker wijzigen
+        private void WijzigMedewerker()
         {
             ToggleWijzigNieuw = 1;
             LijstEnable = false;
@@ -233,7 +237,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
             Verwijderenable = false;
             TXTEnable = true;
         }
-
+        //Kijken of wat er in txtMail is ingevuld wel een geldig mail account is.
         bool IsMail(string email)
         {
             try
@@ -246,9 +250,11 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
                 return false;
             }
         }
-        private async void ProductOpslaan()
+        //Method Opslaan Medewerker
+        private async void MedewerkerOpslaan()
         {
             int fout = 0;
+            //Als er een nieuwe medewerker is
             if(ToggleWijzigNieuw == 0)
             {
                 if(EmployeeAdres != "" && EmployeeEmail != "" && EmployeeName != "" && EmployeeTel != "")
@@ -276,6 +282,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
                     FoutMelding = "Gelieve correcte gegevenss in te geven.";
                 }
             }
+            //Als er gewijzigd word
             else if(ToggleWijzigNieuw == 1)
             {
                 if (EmployeeAdres != "" && EmployeeEmail != "" && EmployeeName != "" && EmployeeTel != "")
@@ -303,6 +310,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
                     FoutMelding = "Gelieve correcte gegevenss in te geven.";
                 }
             }
+            //Als er geen foutmelding is 
             if(fout == 0)
             {
                 LijstEnable = true;
@@ -313,7 +321,8 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
                 TXTEnable = false;
             }
         }
-        private void ProductAnnuleren()
+        //Method Annuleren
+        private void MedewerkerAnnuleren()
         {
             EmployeeAdres = "";
             EmployeeEmail = "";
@@ -327,7 +336,8 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
             Verwijderenable = false;
             TXTEnable = false;
         }
-        private async void ProductVerwijderen()
+        //Verwijderen medewerker Method
+        private async void MedewerkerVerwijderen()
         {
             await DeleteEmployee(SelectedEmployee);
             SelectedEmployee = null;
@@ -335,9 +345,10 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
         }
 
         #endregion
+
         #region Tasks
 
-
+        //Ophalen Medewerkers
         public async Task<List<Employee>> GetEmployees()
         {
             using (HttpClient client = new HttpClient())
@@ -355,6 +366,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
             }
             return null;
         }
+        //Save Nieuwe Medewerker
         public async Task<int> SaveEmployee(Employee newEmployee)
         {
             using (HttpClient client = new HttpClient())
@@ -373,6 +385,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
                 }
             }
         }
+        //Verander Medewerker
         public async Task<int> ChangeEmployee(Employee changedEmployee)
         {
             using (HttpClient client = new HttpClient())
@@ -391,6 +404,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
                 }
             }
         }
+        //Verwijder Medewerker TASK
         public async Task<bool> DeleteEmployee(Employee delEmployee)
         {
             using (HttpClient client = new HttpClient())

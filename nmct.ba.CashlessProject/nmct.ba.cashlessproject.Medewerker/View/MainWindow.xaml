@@ -1,0 +1,79 @@
+﻿<Window x:Class="nmct.ba.cashlessproject.Medewerker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:v="clr-namespace:nmct.ba.cashlessproject.Medewerker.View"
+        xmlns:vm="clr-namespace:nmct.ba.cashlessproject.Medewerker.ViewModel"
+        xmlns:c="clr-namespace:nmct.ba.CashlessProject.Medewerker.Converters"
+        Title="MainWindow" Height="720" Width="1280" MinHeight="720" MinWidth="1280" >
+    <Window.DataContext>
+        <vm:ApplicationVM/>
+    </Window.DataContext>
+    <Window.Resources>
+        <c:BoolToVisibility x:Key="BoolToVisibility"/>
+        <DataTemplate DataType="{x:Type vm:PageOneVM}">
+            <v:PageOne/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:BestellingVM}">
+            <v:Bestelling/>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid Height="688.8" Width="1270">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120*"/>
+            <RowDefinition Height="568.8*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid  Visibility="{Binding MenuVisibility, Converter={StaticResource BoolToVisibility}}" Background="#FFB0CF44" Grid.ColumnSpan="6" Grid.RowSpan="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <ItemsControl ItemsSource="{Binding Pages}" Grid.ColumnSpan="10" Grid.Row="2" Grid.RowSpan="2" Margin="0,0,0,0">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" Margin="0"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Margin="20,0,0,0"  Content="{Binding Name}" Command="{Binding DataContext.ChangePageCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding}"
+                                 Width="120" Background="White" Height="40" Grid.ColumnSpan="10" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <TextBlock x:Name="txbOrganisatie"  Text="Organisatie:" Grid.ColumnSpan="2" Grid.Column="12" TextAlignment="Left" Margin="0.2,0,0.4,0" />
+            <TextBlock x:Name="txbOrganisatiegekozen"  Text="{Binding Organisatie}" Grid.ColumnSpan="2" Grid.Column="12" TextAlignment="Left" Margin="0.2,0,0.4,0" Grid.Row="1" />
+            <Button Command="{Binding LogOff}" Content="Uitloggen" Grid.Column="12" HorizontalAlignment="Left" Margin="0.2,0,0,0" Grid.Row="3" VerticalAlignment="Top" Width="181" Grid.ColumnSpan="2" Height="20" />
+            <TextBlock   Text="{Binding Tijd}" Grid.ColumnSpan="2" Grid.Column="12" TextAlignment="Left" Margin="0.2,0,0.4,0" Grid.Row="5" />
+        </Grid>
+        <ContentControl Grid.Row="1" Content="{Binding CurrentPage}" Grid.ColumnSpan="6" />
+    </Grid>
+</Window>

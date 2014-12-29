@@ -46,6 +46,7 @@
     <Compile Include="Register.cs" />
     <Compile Include="Register_Employee.cs" />
     <Compile Include="Sale.cs" />
+    <Compile Include="Transfer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">

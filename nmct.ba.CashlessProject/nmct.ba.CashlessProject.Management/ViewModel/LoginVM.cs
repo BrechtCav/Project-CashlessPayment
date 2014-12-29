@@ -16,26 +16,21 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
         {
             get { return "Login"; }
         }
-        private string _demo = "Demo";
-        public string Demo
-        {
-            get { return _demo; }
-            set { _demo = value; OnPropertyChanged("Demo"); }
-        }
+        //Username
         private string _username;
         public string Username
         {
             get { return _username; }
             set { _username = value; OnPropertyChanged("Username"); }
         }
-
+        //Paswoord
         private string _password;
         public string Password
         {
             get { return _password; }
             set { _password = value; OnPropertyChanged("Password"); }
         }
-
+        //Foutmelding
         private string _error;
         public string Error
         {
@@ -43,11 +38,12 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
             set { _error = value; OnPropertyChanged("Error"); }
         }
 
-
+        //ICommand wanneer er op aanmelden word gedrukt
         public ICommand LoginCommand
         {
             get { return new RelayCommand(Login); }
         }
+        // Login Method
         private void Login()
         {
             ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
@@ -55,8 +51,11 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
 
             if (!ApplicationVM.token.IsError)
             {
+                //Tonen van menu
                 appvm.MenuVisibility = true;
+                //Naar product pagina gaan
                 appvm.ChangePage(new PageOneVM());
+                //Tonen van organisatieinfo
                 appvm.GetDBInfo();
                 appvm.klok();
             }
@@ -65,7 +64,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
                 Error = "Gebruikersnaam of paswoord kloppen niet";
             }
         }
-
+        //Verkrijgen van token
         private TokenResponse GetToken()
         {
             OAuth2Client client = new OAuth2Client(new Uri("http://localhost:7695/token"));

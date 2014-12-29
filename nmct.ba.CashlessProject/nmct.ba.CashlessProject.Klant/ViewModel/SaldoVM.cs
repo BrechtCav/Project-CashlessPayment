@@ -15,6 +15,7 @@ namespace nmct.ba.CashlessProject.Klant.ViewModel
         }
         public SaldoVM()
         {
+
         }
     }
 }

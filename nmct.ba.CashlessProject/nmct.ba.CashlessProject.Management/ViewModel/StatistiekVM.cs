@@ -27,67 +27,86 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
                 Getlistsales();
             }
         }
-        private async void Getlistsales()
-        {
-            await GetProducts();
-            await GetRegisters();
-        }
+        #region Data
+        //Datum van
         private Nullable<DateTime> fromdate;
         public Nullable<DateTime> FromDate
         {
             get{return fromdate;}
             set{fromdate = value; OnPropertyChanged("FromDate");}
         }
+        //Datum tot
         private Nullable<DateTime> untildate;
         public Nullable<DateTime> UntilDate
         {
             get { return untildate; }
             set { untildate = value; OnPropertyChanged("UntilDate"); }
         }
+        //Gekozen product
         private Product selectedproduct;
         public Product SelectedProduct
         {
             get { return selectedproduct; }
             set { selectedproduct = value; OnPropertyChanged("SelectedProduct"); }
         }
+        //Gekozen kassa
         private Register selectedkassa;
         public Register SelectedKassa
         {
             get { return selectedkassa; }
             set { selectedkassa = value; OnPropertyChanged("SelectedKassa"); }
         }
+        //kassalijst
         private List<Register> kassalist;
         public List<Register> KassaList
         {
             get { return kassalist; }
             set { kassalist = value; OnPropertyChanged("KassaList"); }
         }
+        //productlijst
         private List<Product> productlist;
         public List<Product> ProductList
         {
             get { return productlist; }
             set { productlist = value; OnPropertyChanged("ProductList"); }
         }
+        //Lijst met verkopen
         private List<Sale> resultaten;
         public List<Sale> Resultaten
         {
             get { return resultaten; }
             set { resultaten = value; OnPropertyChanged("Resultaten"); }
         }
+        //Lijst Met gezochte resultaten
         private List<Sale> eindresultaat;
         public List<Sale> EindResultaat
         {
             get { return eindresultaat; }
             set { eindresultaat = value; OnPropertyChanged("EindResultaat"); }
         }
+#endregion
         
+        #region ICommands
+        //ICommand Zoek
         public ICommand Zoek
         {
             get { return new RelayCommand(ZoekOpdracht); }
         }
-        private async void ZoekOpdracht()
+#endregion
+
+        #region Voids
+        //Verkrijgen kassa's en producten en verkopen
+        private async void Getlistsales()
         {
-            List<Sale> lijst = await GetSales();
+            await GetProducts();
+            await GetRegisters();
+            await GetSales();
+        }
+        //Method Zoeken
+        private void ZoekOpdracht()
+        {
+            //Lijst Ophalen
+            List<Sale> lijst = Resultaten;
             if(SelectedProduct != null)
             {
                 lijst = lijst.FindAll(s => s.ProductID.ID == selectedproduct.ID);
@@ -106,7 +125,10 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
             }
             EindResultaat = lijst;
         }
-        //Ophalen producten per categorie.
+        #endregion
+
+        #region Tasks
+        //Ophalen Sales
         public async Task<List<Sale>> GetSales()
         {
             using (HttpClient client = new HttpClient())
@@ -125,6 +147,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
             }
             return null;
         }
+        //Ophalen Kassa's
         public async Task<List<Register>> GetRegisters()
         {
             using (HttpClient client = new HttpClient())
@@ -142,7 +165,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
             }
             return null;
         }
-        //Ophalen producten per categorie.
+        //Ophalen Producten
         public async Task<List<Product>> GetProducts()
         {
             using (HttpClient client = new HttpClient())
@@ -156,14 +179,13 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
                     ProductList = null;
                     string json = await response.Content.ReadAsStringAsync();
                     List<Product> sortedProduct = JsonConvert.DeserializeObject<List<Product>>(json);
-                    prod = sortedProduct.OrderBy(o => o.ProductName).ToList();
-                    ProductList = prod;
+                    ProductList = sortedProduct.OrderBy(o => o.ProductName).ToList();
                     return ProductList;
 
                 }
             }
             return null;
         }
-
+        #endregion
     }
 }

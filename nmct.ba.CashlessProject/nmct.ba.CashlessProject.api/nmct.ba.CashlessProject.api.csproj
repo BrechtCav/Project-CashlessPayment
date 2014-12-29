@@ -175,12 +175,14 @@
     <Compile Include="Controllers\CustomerMAController.cs" />
     <Compile Include="Controllers\DatabaseInfoController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\EmployeeMEController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\RegisterEmployeeController.cs" />
     <Compile Include="Controllers\SaleController.cs" />
+    <Compile Include="Controllers\TransferMAController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -191,6 +193,7 @@
     <Compile Include="Models\CustomerDA.cs" />
     <Compile Include="Models\CustomerMADA.cs" />
     <Compile Include="Models\EmployeeDA.cs" />
+    <Compile Include="Models\EmployeeMEDA.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OrganisationDA.cs" />
@@ -205,6 +208,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
+    <Compile Include="Providers\SimpleAuthorizationServerProviderME.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

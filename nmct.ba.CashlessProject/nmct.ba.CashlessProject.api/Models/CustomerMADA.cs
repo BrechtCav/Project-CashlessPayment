@@ -45,6 +45,17 @@ namespace nmct.ba.CashlessProject.api.Models
             reader.Close();
             return resultaat;
         }
+        public static int ChangeCustomer(Customer changecustomer, IEnumerable<Claim> claims)
+        {
+            string sql = "UPDATE Customer SET CustomerName = @Name, Address = @Address, Picture = @Picture WHERE ID = @ID";
+            DbParameter par1 = Database.AddParameter("ConnectionString", "@Name", changecustomer.Name);
+            DbParameter par2 = Database.AddParameter("ConnectionString", "@Address", changecustomer.Address);
+            DbParameter par3 = Database.AddParameter("ConnectionString", "@Picture", changecustomer.Picture);
+            DbParameter par5 = Database.AddParameter("ConnectionString", "@ID", changecustomer.ID);
+            int id = Database.InsertData(Database.GetConnection(CreateConnectionString(claims)), sql, par1, par2, par3, par5);
+            return id;
+
+        }
         private static Customer Create(IDataRecord record)
         {
             Customer cust = new  Customer();
@@ -61,6 +72,43 @@ namespace nmct.ba.CashlessProject.api.Models
                 cust.Picture = new byte[0];
             }
             return cust;
+        }
+        public static int UpdateAccounts(Transfer t, IEnumerable<Claim> claims)
+        {
+            int rowsaffected = 0;
+            DbTransaction trans = null;
+
+            try
+            {
+                trans = Database.BeginTransaction(Database.GetConnection(CreateConnectionString(claims)));
+                if(t.Teken == 0)
+                {
+                    string sql = "UPDATE Customer SET Balance=Balance-@Amount WHERE ID=@ID";
+                    DbParameter par1 = Database.AddParameter("ConnectionString", "@Amount", t.Amount);
+                    DbParameter par2 = Database.AddParameter("ConnectionString", "@ID", t.Cust.ID);
+                    rowsaffected += Database.ModifyData(trans, sql, par1, par2);
+                }
+                else if(t.Teken == 1)
+                {
+                    string sql2 = "UPDATE Customer SET Balance=Balance+@Amount WHERE ID=@ID";
+                    DbParameter par3 = Database.AddParameter("ConnectionString", "@Amount", t.Amount);
+                    DbParameter par4 = Database.AddParameter("ConnectionString", "@ID", t.Cust.ID);
+                    rowsaffected += Database.ModifyData(trans, sql2, par3, par4);
+                }
+                trans.Commit();
+            }
+            catch (Exception ex)
+            {
+                if (trans != null)
+                    trans.Rollback();
+            }
+            finally
+            {
+                if (trans != null)
+                    Database.ReleaseConnection(trans.Connection);
+            }
+
+            return rowsaffected;
         }
     }
 }

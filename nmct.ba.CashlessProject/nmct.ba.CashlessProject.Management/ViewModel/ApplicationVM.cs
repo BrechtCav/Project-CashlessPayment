@@ -20,7 +20,9 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
         ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
         public ApplicationVM()
         {
+            //Inlogscherm als startscherm
             StartPages.Add(new LoginVM());
+            //Pagina's toevoegen na inloggen
             Pages.Add(new PageOneVM());
             Pages.Add(new MedewerkerVM());
             Pages.Add(new KassaVM());
@@ -30,12 +32,14 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
 
             CurrentPage = StartPages[0];
         }
+        // Info Organisatie
         private string organisatie = "";
         public string Organisatie
         {
             get { return organisatie; }
             set { organisatie = value; OnPropertyChanged("Organisatie"); }
         }
+        //Timer
         private string tijd = "";
         public string Tijd
         {
@@ -43,7 +47,6 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
             set { tijd = value; OnPropertyChanged("Tijd"); }
         }
         DispatcherTimer dispatcherTimer = new DispatcherTimer();
-        int test = 0;
         public void klok()
         {
             dispatcherTimer.Tick += new EventHandler(this.kloktik);
@@ -53,10 +56,10 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
 
         private void kloktik(object sender, EventArgs e)
         {
-            test +=1;
             string dag = DateTimeFormatInfo.CurrentInfo.GetDayName(DateTime.Now.DayOfWeek);
             Tijd = char.ToUpper(dag[0]) + dag.Substring(1) +" " + DateTime.Now.ToString();
         }
+        //Login Naam krijgen
         public async void GetDBInfo()
         {
             using (HttpClient client = new HttpClient())
@@ -71,7 +74,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
                 }
             }
         }
-
+        
         private object currentPage;
         public object CurrentPage
         {

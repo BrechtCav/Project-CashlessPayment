@@ -23,11 +23,11 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
         {
             if(ApplicationVM.token != null)
             {
+                //Vul Listbox met kassa's
                 GetKassaList();
             }
         }
         #region Enabled
-
 
         //IsEnabled Kassalijst
         private bool kassalijst = true;
@@ -36,28 +36,28 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
             get { return kassalijst; }
             set { kassalijst = value; OnPropertyChanged("KassaLijst"); }
         }
-        //IsEnabled Kassalijst
+        //IsEnabled Kassanaam
         private bool kassanaam = false;
         public bool KassaNaam
         {
             get { return kassanaam; }
             set { kassanaam = value; OnPropertyChanged("KassaNaam"); }
         }
-        //IsEnabled Kassalijst
+        //IsEnabled kassalocatie
         private bool kassalocatie = false;
         public bool KassaLocatie
         {
             get { return kassalocatie; }
             set { kassalocatie = value; OnPropertyChanged("KassaLocatie"); }
         }
-        //IsEnabled Kassalijst
+        //IsEnabled kassatoestel
         private bool kassatoestel = false;
         public bool KassaToestel
         {
             get { return kassatoestel; }
             set { kassatoestel = value; OnPropertyChanged("KassaToestel"); }
         }
-        //IsEnabled Kassalijst
+        //IsEnabled Aanmeldlijst
         private bool kassaaanmeldlijst = true;
         public bool KassaAanmeldLijst
         {
@@ -67,36 +67,38 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
 
 
         #endregion
+       
         #region Data
 
-        // Kassalijst
+        // GekozenKassa
         private Register gekozenkassa;
         public Register GekozenKassa
         {
             get { return gekozenkassa; }
             set { gekozenkassa = value; OnPropertyChanged("GekozenKassa"); }
         }
+        //Lijst kassa's
         private List<Register> listkassa;
         public List<Register> ListKassa
         {
             get { return listkassa; }
             set { listkassa = value; OnPropertyChanged("ListKassa"); }
         }
-        // naam
+        // Kassanaam
         private string naam;
         public string Naam
         {
             get { return naam; }
             set { naam = value; OnPropertyChanged("Naam"); }
         }
-        // locatie
+        // kassa locatie
         private string locatie;
         public string Locatie
         {
             get { return locatie; }
             set { locatie = value; OnPropertyChanged("Locatie"); }
         }
-        // toestel
+        // kassa toestel
         private string toestel;
         public string Toestel
         {
@@ -112,16 +114,17 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
         }
 
         #endregion
-        #region ICommands
         
-
+        #region ICommands
+        //ICommand kassa
         public ICommand  ToonKassa
         {
             get { return new RelayCommand(KassaTonen); }
         }
         #endregion
+        
         #region Voids
-
+        //Tonen van info van geselecteerde kassa
         private async void KassaTonen()
         {
             Aanmeldlijst = null;
@@ -130,13 +133,15 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
             Toestel = GekozenKassa.Device;
             await GetListRegEmp(GekozenKassa.RegisterID);
         }
+        //Kassa lijst vragen
         private async void GetKassaList()
         {
             await GetList();
         }
         #endregion
+        
         #region Tasks
-
+        //Kassa aanmeldingen opvragen
         public async Task<List<Register_Employee>> GetListRegEmp(int id)
         {
             using (HttpClient client = new HttpClient())
@@ -149,13 +154,13 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
                     Aanmeldlijst = null;
                     string json = await response.Content.ReadAsStringAsync();
                     List<Register_Employee> result = JsonConvert.DeserializeObject<List<Register_Employee>>(json);
-                    Aanmeldlijst = result;
-
+                    Aanmeldlijst = result.OrderBy(o => o.Until).ToList(); ;
                     return result;
                 }
             }
             return null;
         }
+        //Kassa lijst ophalen
         public async Task<List<Register>> GetList()
         {
             using (HttpClient client = new HttpClient())
@@ -167,7 +172,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
                 {
                     string json = await response.Content.ReadAsStringAsync();
                     List<Register> result = JsonConvert.DeserializeObject<List<Register>>(json);
-                    ListKassa = result;
+                    ListKassa = result.OrderBy(o => o.RegisterName).ToList(); ;
                     return result;
                 }
             }

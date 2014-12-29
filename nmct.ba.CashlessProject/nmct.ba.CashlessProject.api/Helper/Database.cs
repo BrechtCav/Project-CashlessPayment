@@ -134,12 +134,10 @@ namespace nmct.ba.CashlessProject.api.Helper
             return par;
         }
 
-        public static DbTransaction BeginTransaction(string ConnectionString)
+        public static DbTransaction BeginTransaction(DbConnection con)
         {
-            DbConnection con = null;
             try
             {
-                con = GetConnection(ConnectionString);
                 return con.BeginTransaction();
             }
             catch (Exception ex)

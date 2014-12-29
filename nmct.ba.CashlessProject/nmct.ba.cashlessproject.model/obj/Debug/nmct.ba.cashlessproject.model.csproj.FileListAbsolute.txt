@@ -23,4 +23,10 @@ C:\Project\Project-CashlessPayment\nmct.ba.CashlessProject\nmct.ba.cashlessproje
 C:\Project\Project-CashlessPayment\nmct.ba.CashlessProject\nmct.ba.cashlessproject.model\bin\Debug\Newtonsoft.Json.xml
 C:\Project\Project-CashlessPayment\nmct.ba.CashlessProject\nmct.ba.cashlessproject.model\obj\Debug\nmct.ba.cashlessproject.model.dll
 C:\Project\Project-CashlessPayment\nmct.ba.CashlessProject\nmct.ba.cashlessproject.model\obj\Debug\nmct.ba.cashlessproject.model.pdb
-C:\Project\Project-CashlessPayment\nmct.ba.CashlessProject\nmct.ba.cashlessproject.model\obj\Debug\nmct.ba.cashlessproject.model.csprojResolveAssemblyReference.cache
+C:\Users\BrechtCaveye\Documents\nmct.ba.CashlessProject\nmct.ba.cashlessproject.model\bin\Debug\nmct.ba.cashlessproject.model.dll
+C:\Users\BrechtCaveye\Documents\nmct.ba.CashlessProject\nmct.ba.cashlessproject.model\bin\Debug\nmct.ba.cashlessproject.model.pdb
+C:\Users\BrechtCaveye\Documents\nmct.ba.CashlessProject\nmct.ba.cashlessproject.model\bin\Debug\Newtonsoft.Json.dll
+C:\Users\BrechtCaveye\Documents\nmct.ba.CashlessProject\nmct.ba.cashlessproject.model\bin\Debug\Newtonsoft.Json.xml
+C:\Users\BrechtCaveye\Documents\nmct.ba.CashlessProject\nmct.ba.cashlessproject.model\obj\Debug\nmct.ba.cashlessproject.model.csprojResolveAssemblyReference.cache
+C:\Users\BrechtCaveye\Documents\nmct.ba.CashlessProject\nmct.ba.cashlessproject.model\obj\Debug\nmct.ba.cashlessproject.model.dll
+C:\Users\BrechtCaveye\Documents\nmct.ba.CashlessProject\nmct.ba.cashlessproject.model\obj\Debug\nmct.ba.cashlessproject.model.pdb

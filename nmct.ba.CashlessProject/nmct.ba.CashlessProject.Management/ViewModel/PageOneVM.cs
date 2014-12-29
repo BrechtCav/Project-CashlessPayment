@@ -34,8 +34,6 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
                 AnnulerenProduct = false;
             }
         }
-        //Toggle voor Opslaan
-        int NieuwWijzigProductToggle = 0;
         #region Enabled
 
         //IsEnabled cboCategorie
@@ -104,8 +102,9 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
 
         #endregion
 
-
         #region  Data
+        //Toggle voor Opslaan
+        int NieuwWijzigProductToggle = 0;
         //Lijst met producten per categorie
         private List<Product> _producten;
         public List<Product> Producten

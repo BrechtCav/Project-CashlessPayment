@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:nmct.ba.CashlessProject.Management.ViewModel"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="568.8" d:DesignWidth="1270">
     <UserControl.DataContext>
@@ -36,8 +37,20 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <ListBox ItemsSource="{Binding EindResultaat}" x:Name="lstStatistieken" HorizontalAlignment="Left" Height="407.12" Grid.RowSpan="11" VerticalAlignment="Top" Width="1178.4" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="5" Margin="0,10,0,0"/>
-        <ComboBox ItemsSource="{Binding KassaList}" SelectedItem="{Binding SelectedKassa}" x:Name="cboStatistiekenKassa" Grid.Column="3" HorizontalAlignment="Left" Margin="133.2,6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="246.4" Grid.ColumnSpan="2" Height="26.44"/>
-        <ComboBox ItemsSource="{Binding ProductList}" SelectedItem="{Binding SelectedProduct}" x:Name="cboStatistiekenProduct" Grid.Column="4" HorizontalAlignment="Left" Margin="202.4,6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="244" Grid.ColumnSpan="2"/>
+        <ComboBox ItemsSource="{Binding KassaList}" SelectedItem="{Binding SelectedKassa}" x:Name="cboStatistiekenKassa" Grid.Column="3" HorizontalAlignment="Left" Margin="133.2,6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="246.4" Grid.ColumnSpan="2" Height="26.44">
+        <ComboBox.ItemContainerStyle>
+            <Style TargetType="ComboBoxItem">
+                <Setter Property="Height" Value="20"/>
+            </Style>
+        </ComboBox.ItemContainerStyle>
+        </ComboBox>
+        <ComboBox ItemsSource="{Binding ProductList}" SelectedItem="{Binding SelectedProduct}" x:Name="cboStatistiekenProduct" Grid.Column="4" HorizontalAlignment="Left" Margin="202.4,6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="244" Grid.ColumnSpan="2">
+            <ComboBox.ItemContainerStyle>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="Height" Value="20"/>
+                </Style>
+            </ComboBox.ItemContainerStyle>
+        </ComboBox>
         <DatePicker SelectedDate="{Binding FromDate}" x:Name="dtpStatistiekenVan" Grid.Column="1" HorizontalAlignment="Left" Height="26.4" Margin="0,6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="244" FirstDayOfWeek="Monday"/>
         <Label x:Name="lblStatistiekenVan" Content="Van" Grid.Column="1" HorizontalAlignment="Left" Margin="0.8,5.96,0,0" VerticalAlignment="Top"/>
         <DatePicker SelectedDate="{Binding UntilDate}" x:Name="dtpStatistiekenTot" Grid.Column="2" HorizontalAlignment="Left" Height="26.4" Margin="60.8,6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="244" Grid.ColumnSpan="2" FirstDayOfWeek="Monday"/>

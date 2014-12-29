@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nmct.ba.CashlessProject.Man
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nmct.ba.CashlessProject.api", "nmct.ba.CashlessProject.api\nmct.ba.CashlessProject.api.csproj", "{D1DD802E-5D48-4B72-B570-126D43C92883}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nmct.ba.cashlessproject.Medewerker", "nmct.ba.cashlessproject.Medewerker\nmct.ba.cashlessproject.Medewerker.csproj", "{8257EEEF-F9E8-4B67-9B66-94FD53D8138D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D1DD802E-5D48-4B72-B570-126D43C92883}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1DD802E-5D48-4B72-B570-126D43C92883}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1DD802E-5D48-4B72-B570-126D43C92883}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8257EEEF-F9E8-4B67-9B66-94FD53D8138D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8257EEEF-F9E8-4B67-9B66-94FD53D8138D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8257EEEF-F9E8-4B67-9B66-94FD53D8138D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8257EEEF-F9E8-4B67-9B66-94FD53D8138D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

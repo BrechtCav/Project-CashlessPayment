@@ -44,6 +44,13 @@ namespace nmct.ba.CashlessProject.api
                     AccessTokenExpireTimeSpan = TimeSpan.FromHours(8),
                     Provider = new SimpleAuthorizationServerProvider()
                 });
+            app.UseOAuthAuthorizationServer(new OAuthAuthorizationServerOptions()
+            {
+                AllowInsecureHttp = true,
+                TokenEndpointPath = new PathString("/tokenME"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromHours(8),
+                Provider = new SimpleAuthorizationServerProviderME()
+            });
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 

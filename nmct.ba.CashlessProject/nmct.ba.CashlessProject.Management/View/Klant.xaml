@@ -60,6 +60,7 @@
         <Button Command="{Binding KlantAnnuleren}" Visibility="{Binding BtnAnnuleren, Converter={StaticResource BoolToVisibility}}" Content="Annuleren" Grid.Column="4" VerticalAlignment="Center" Width="155" Height="25" HorizontalAlignment="Center" Grid.Row="11" Margin="105.007,4.92,227.993,8" Grid.ColumnSpan="2" />
         <Label x:Name="lblKlantBalance" Content="Saldo" Grid.Column="3" HorizontalAlignment="Left" Grid.Row="6" VerticalAlignment="Center" Margin="0,5.96,0,6"/>
         <Image Source="{Binding Image , Converter={StaticResource StringToImageConverter}, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2" Grid.Column="4" Margin="145.4,0.2,145.4,0.4" Grid.Row="3" Grid.RowSpan="5"/>
+        <TextBlock Grid.Column="3" HorizontalAlignment="Left" Margin="0.4,10.2,0,0" Grid.Row="9" TextWrapping="Wrap" Text="{Binding Foutmelding}" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="37" Width="488" Grid.RowSpan="2" Foreground="Red"/>
 
     </Grid>
 </UserControl>
