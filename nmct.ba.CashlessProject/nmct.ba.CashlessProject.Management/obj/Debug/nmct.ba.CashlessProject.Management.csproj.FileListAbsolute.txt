@@ -194,3 +194,5 @@ C:\Users\BrechtCaveye\Pictures\nmct.ba.CashlessProject\nmct.ba.CashlessProject.M
 C:\Users\BrechtCaveye\Pictures\nmct.ba.CashlessProject\nmct.ba.CashlessProject.Management\obj\Debug\nmct.ba.CashlessProject.Management.g.resources
 C:\Users\BrechtCaveye\Pictures\nmct.ba.CashlessProject\nmct.ba.CashlessProject.Management\obj\Debug\nmct.ba.CashlessProject.Management.Properties.Resources.resources
 C:\Users\BrechtCaveye\Pictures\nmct.ba.CashlessProject\nmct.ba.CashlessProject.Management\obj\Debug\nmct.ba.CashlessProject.Management.csproj.GenerateResource.Cache
+C:\Project\Project-CashlessPayment\nmct.ba.CashlessProject\nmct.ba.CashlessProject.Management\obj\Debug\View\Instellingen.baml
+C:\Project\Project-CashlessPayment\nmct.ba.CashlessProject\nmct.ba.CashlessProject.Management\obj\Debug\View\Instellingen.g.cs

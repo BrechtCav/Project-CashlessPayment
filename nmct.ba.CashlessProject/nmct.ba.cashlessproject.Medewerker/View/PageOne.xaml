@@ -4,15 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:nmct.ba.cashlessproject.Medewerker.ViewModel"
+             xmlns:p="clr-namespace:nmct.ba.CashlessProject.Medewerker.Converters"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
-             d:DesignHeight="568.8" d:DesignWidth="1270">
+             d:DesignHeight="720" d:DesignWidth="1270">
     <UserControl.DataContext>
         <vm:PageOneVM/>
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <p:PasswordBoxAssistant x:Key="PasswordBoxAssistant"/>
+    </UserControl.Resources>
     <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>
-            <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -36,12 +40,18 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBlock Text="{Binding Tijd}" Grid.ColumnSpan="3" Margin="1,0.8,203.2,0" Grid.Column="3" Grid.Row="2" FontSize="28" Height="37" VerticalAlignment="Top" Grid.RowSpan="2"/>
-        <TextBlock Text="{Binding Message}" Grid.ColumnSpan="3" Margin="1,37.2,203.2,0" Grid.Column="3" Grid.Row="9" FontSize="28" Height="37" VerticalAlignment="Top" Grid.RowSpan="2"/>
-        <TextBox Text="{Binding Login}" Grid.Column="3" HorizontalAlignment="Left" Height="39" Margin="0,37.2,0,0" Grid.Row="3" TextWrapping="Wrap"  VerticalAlignment="Top" Width="408" Grid.ColumnSpan="3" Grid.RowSpan="3"/>
-        <TextBox Text="{Binding Password}" Grid.Column="3" HorizontalAlignment="Left" Height="39" Margin="1,37.2,0,0" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Top" Width="406" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
-        <Button Command="{Binding LoginCommand}" Content="Aanmelden" Grid.Column="3" HorizontalAlignment="Left" Margin="1,37.2,0,0" Grid.Row="7" VerticalAlignment="Top" Width="203" Grid.RowSpan="3" Height="39"/>
-        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="10.2,7.6,0,0" Grid.Row="4" TextWrapping="Wrap" Text="Login:" VerticalAlignment="Top" FontSize="18"/>
-        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="10.2,7.6,0,0" Grid.Row="6" TextWrapping="Wrap" Text="Password:" VerticalAlignment="Top" FontSize="18"/>
+        <TextBox Text="{Binding Login}" Margin="38.4,38,206.4,10" Grid.ColumnSpan="3" Grid.Column="2" Grid.Row="4" FontSize="16" Grid.RowSpan="2"/>
+        <PasswordBox x:Name="PasswordBox"
+      p:PasswordBoxAssistant.BindPassword="true"  p:PasswordBoxAssistant.BoundPassword="{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Margin="38.4,38,206.4,10" Grid.Row="6" Grid.ColumnSpan="3" FontSize="16" Grid.RowSpan="2"/>
+        <Border Grid.ColumnSpan="3" Grid.RowSpan="11" Grid.Row="2" Grid.Column="2" BorderBrush="Black" BorderThickness="2" Margin="0.4,2,0.4,46"/>
+        <Border Grid.ColumnSpan="3" Grid.RowSpan="3" Grid.Row="10" Grid.Column="2" BorderThickness="2" Background="#FFE3E3E3" Margin="0.4,2,0.4,46"/>
+        <Button IsEnabled="{Binding BTNAanmelden}" Content="Aanmelden" Command="{Binding LoginCommand}" Margin="214.4,17,30.4,22" Grid.Column="3" Grid.Row="10" Grid.ColumnSpan="2" Grid.RowSpan="2" Background="White"/>
+        <TextBlock Foreground="Red" Text="{Binding Message}" Grid.Column="2" Margin="38.4,27,29.6,11" Grid.Row="10" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+        <TextBlock Grid.Column="2"  HorizontalAlignment="Left" Margin="38.4,0,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" Grid.ColumnSpan="2" Height="39" FontSize="20"><Run Text="Login"/><Run Text=":"/></TextBlock>
+        <TextBlock Grid.Column="2"  HorizontalAlignment="Left" Margin="38.4,0,0,0" Grid.Row="6" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" Grid.ColumnSpan="2" Height="39" FontSize="20"><Run Text="Paswoord"/><Run Text=":"/></TextBlock>
+        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="2.4,3,0,0" Grid.Row="2" TextWrapping="Wrap" Text="Medewerker Login" VerticalAlignment="Top" Grid.RowSpan="2" Grid.ColumnSpan="3" Height="75" Width="728" FontSize="40" TextAlignment="Center" Foreground="White" Background="#FFB0CF44"/>
+        <TextBlock Grid.Column="2"  HorizontalAlignment="Left" Margin="198.4,35,0,0" Grid.Row="13" Grid.RowSpan="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="369" Height="39" Text="Designed and programmed by Brecht caveye  - All Rights Reserveed" Grid.ColumnSpan="3"/>
+        <TextBlock Grid.Column="2"  HorizontalAlignment="Left" Margin="38.4,0,0,0" Grid.Row="8" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" Grid.ColumnSpan="2" Height="39" FontSize="20"><Run Text="Kassa"/><Run Text=":"/></TextBlock>
+        <ComboBox SelectedItem="{Binding SelectedKassa}" ItemsSource="{Binding KassaLijst}" Grid.Column="2" HorizontalAlignment="Left" Margin="38.4,39,0,0" Grid.Row="8" VerticalAlignment="Top" Width="488" Height="34" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
     </Grid>
 </UserControl>

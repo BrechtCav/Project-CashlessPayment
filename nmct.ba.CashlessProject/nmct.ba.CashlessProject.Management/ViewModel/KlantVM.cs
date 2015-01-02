@@ -269,7 +269,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
                 {
                     string json = await response.Content.ReadAsStringAsync();
                     List<Customer> result = JsonConvert.DeserializeObject<List<Customer>>(json);
-                    ListKlant = result;
+                    ListKlant = result.OrderBy(o => o.Name).ToList();
                     return result;
                 }
             }

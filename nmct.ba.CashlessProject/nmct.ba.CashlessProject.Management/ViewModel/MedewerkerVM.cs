@@ -133,6 +133,14 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
             set { employeeemail = value; OnPropertyChanged("EmployeeEmail"); }
         }
 
+        //Login Medewerker
+        private string employeelogin;
+        public string EmployeeLogin
+        {
+            get { return employeelogin; }
+            set { employeelogin = value; OnPropertyChanged("EmployeeLogin"); }
+        }
+
         //Nummer Medewerker
         private string employeetel;
         public string EmployeeTel
@@ -203,6 +211,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
                 EmployeeEmail = SelectedEmployee.Email;
                 EmployeeName = SelectedEmployee.EmployeeName;
                 EmployeeTel = SelectedEmployee.Phone;
+                EmployeeLogin = SelectedEmployee.Login;
             }
         }
         //Method ophalen medewerkerlijst
@@ -218,6 +227,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
             EmployeeEmail = "";
             EmployeeName = "";
             EmployeeTel = "";
+            EmployeeLogin = "";
             SelectedEmployee = null;
             LijstEnable = false;
             WijzigEnable = false;
@@ -263,18 +273,36 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
                     nieuwemployee.Address = EmployeeAdres;
                     nieuwemployee.EmployeeName = EmployeeName;
                     nieuwemployee.Phone = EmployeeTel;
-                    bool mail = IsMail(EmployeeEmail);
-                    if(mail == true)
+                    int loginbestaat = 0;
+                    foreach(Employee empl in ListEmployees)
                     {
-                        nieuwemployee.Email = EmployeeEmail;
-                        await SaveEmployee(nieuwemployee);
-                        GetEmployeeList();
+                        if(empl.Login.Equals(EmployeeLogin))
+                        {
+                            loginbestaat = 1;
+                        }
+                    }
+                    if (loginbestaat == 0)
+                    {
+                        nieuwemployee.Login = EmployeeLogin;
+                        bool mail = IsMail(EmployeeEmail);
+                        if (mail == true)
+                        {
+                            FoutMelding = "";
+                            nieuwemployee.Email = EmployeeEmail;
+                            await SaveEmployee(nieuwemployee);
+                            GetEmployeeList();
+                        }
+                        else
+                        {
+                            fout = 1;
+                            FoutMelding = "Gelieve een juist mail adres in te geven.";
+                        }
                     }
                     else
                     {
                         fout = 1;
-                        FoutMelding = "Gelieve een juist mail adres in te geven.";
-                    }    
+                        FoutMelding = "Login bestaat al";
+                    }
                 }
                 else
                 {
@@ -287,22 +315,44 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
             {
                 if (EmployeeAdres != "" && EmployeeEmail != "" && EmployeeName != "" && EmployeeTel != "")
                 {
-                Employee emp = SelectedEmployee;
+                    Employee emp = new Employee();
+                    emp = SelectedEmployee;
                     emp.Address = EmployeeAdres;
                     emp.EmployeeName = EmployeeName;
                     emp.Phone = EmployeeTel;
                     bool mail = IsMail(EmployeeEmail);
-                    if(mail == true)
+                    int loginbestaat = 0;
+                    foreach (Employee empl in ListEmployees)
                     {
-                        emp.Email = EmployeeEmail;
-                        await ChangeEmployee(emp); 
-                        GetEmployeeList();
+                        if(!empl.Equals(SelectedEmployee))
+                        {
+                            if (empl.Login.Equals(EmployeeLogin))
+                            {
+                                loginbestaat = 1;
+                            }
+                        }
+                    }
+                    if (loginbestaat == 0)
+                    {
+                        emp.Login = EmployeeLogin;
+                        if (mail == true)
+                        {
+                            FoutMelding = "";
+                            emp.Email = EmployeeEmail;
+                            await ChangeEmployee(emp);
+                            GetEmployeeList();
+                        }
+                        else
+                        {
+                            fout = 1;
+                            FoutMelding = "Gelieve een juist mail adres in te geven.";
+                        }
                     }
                     else
                     {
                         fout = 1;
-                        FoutMelding = "Gelieve een juist mail adres in te geven.";
-                    }    
+                        FoutMelding = "Login bestaat al";
+                    }
                 }
                 else
                 {
@@ -319,6 +369,11 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
                 OpslaanAnnulerenEnable = false;
                 Verwijderenable = false;
                 TXTEnable = false;
+                EmployeeAdres = "";
+                EmployeeEmail = "";
+                EmployeeName = "";
+                EmployeeTel = "";
+                EmployeeLogin = "";
             }
         }
         //Method Annuleren
@@ -328,6 +383,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
             EmployeeEmail = "";
             EmployeeName = "";
             EmployeeTel = "";
+            EmployeeLogin = "";
             SelectedEmployee = null;
             LijstEnable = true;
             WijzigEnable = false;
@@ -360,7 +416,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
                 {
                     string json = await response.Content.ReadAsStringAsync();
                     List<Employee> result = JsonConvert.DeserializeObject<List<Employee>>(json);
-                    ListEmployees = result;
+                    ListEmployees = result.OrderBy(o => o.EmployeeName).ToList();
                     return result;
                 }
             }

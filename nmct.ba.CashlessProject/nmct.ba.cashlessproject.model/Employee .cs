@@ -13,6 +13,7 @@ namespace nmct.ba.cashlessproject.model
         private string address;
         private string email;
         private string phone;
+        private string login;
 
         public int ID
         {
@@ -38,6 +39,11 @@ namespace nmct.ba.cashlessproject.model
         {
             get { return phone;}
             set { phone = value; }
+        }
+        public string Login
+        {
+            get { return login; }
+            set { login = value; }
         }
         public override string ToString()
         {

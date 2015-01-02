@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="nmct.ba.CashlessProject.Management.View.Instellingen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:nmct.ba.CashlessProject.Management.ViewModel"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:p="clr-namespace:nmct.ba.CashlessProject.Management.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="568.8" d:DesignWidth="1270">
+    <UserControl.DataContext>
+        <vm:InstellingenVM/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <p:PasswordBoxAssistant x:Key="PasswordBoxAssistant"/>
+    </UserControl.Resources>
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="244*"/>
+            <ColumnDefinition Width="244*"/>
+            <ColumnDefinition Width="244*"/>
+            <ColumnDefinition Width="245*"/>
+            <ColumnDefinition Width="244"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <PasswordBox x:Name="PasswordBox"
+      p:PasswordBoxAssistant.BindPassword="true"  p:PasswordBoxAssistant.BoundPassword="{Binding Path=OldPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Margin="0.4,0.6,243.6,40.2" Grid.Row="9" Grid.ColumnSpan="2" Grid.RowSpan="2" FontSize="14"/>
+        <PasswordBox x:Name="NewPasswordBox"
+      p:PasswordBoxAssistant.BindPassword="true"  p:PasswordBoxAssistant.BoundPassword="{Binding Path=NewPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Margin="0.4,40.6,243.6,0.2" Grid.Row="10" Grid.ColumnSpan="2" Grid.RowSpan="2" FontSize="14"/>
+
+        <Button Content="Wijzig Wachtwoord" Command="{Binding ChangePasswordCommand}" Margin="0.4,1,243.6,0" Grid.Column="2" Grid.Row="13" Grid.ColumnSpan="2"/>
+        <TextBlock Foreground="Red" Text="{Binding Foutmelding}" Grid.Column="2" Margin="0.4,9.8,244.4,28" Grid.Row="12" Grid.RowSpan="2" Grid.ColumnSpan="3"/>
+        <TextBlock Grid.Column="1"  HorizontalAlignment="Left" Margin="0.4,9.6,0,0" Grid.Row="9" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" Grid.ColumnSpan="2" Height="39" FontSize="14" Grid.RowSpan="2"><Run Text="Huidig wachtwoord"/><Run Text=":"/></TextBlock>
+        <TextBlock Grid.Column="1"  HorizontalAlignment="Left" Margin="0.4,9.8,0,0" Grid.Row="11" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" Grid.ColumnSpan="2" Height="39" FontSize="14" Grid.RowSpan="2"><Run Text="Nieuw wachtwoord"/><Run Text=":"/></TextBlock>
+        <TextBlock Grid.Column="1"  HorizontalAlignment="Left" Margin="0.4,10.2,0,0" Grid.Row="7" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" Grid.ColumnSpan="2" Height="39" FontSize="18" Grid.RowSpan="2" TextDecorations="Underline" FontWeight="Bold"><Run Text="Wachtwoord wijzigen"/></TextBlock>
+    </Grid>
+</UserControl>

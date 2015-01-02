@@ -21,6 +21,18 @@ namespace nmct.ba.CashlessProject.api.Models
 
             return Database.CreateConnectionString("System.Data.SqlClient", @"BRECHT", dbname, dblogin, dbpass);
         }
+        public static List<Register> GetListRegisters()
+        {
+            List<Register> resultaat = new List<Register>();
+            string sql = "SELECT * FROM Scouts.dbo.Register";
+            DbDataReader reader = Database.GetData(Database.GetConnection("ConnectionString"), sql);
+            while (reader.Read())
+            {
+                resultaat.Add(Create(reader));
+            }
+            reader.Close();
+            return resultaat;
+        }
         public static List<Register> GetRegisters(IEnumerable<Claim> claims)
         {
             List<Register> resultaat = new List<Register>();

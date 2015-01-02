@@ -55,6 +55,10 @@ namespace nmct.ba.CashlessProject.api.Models
                 resultaat = Create(reader);
             }
             reader.Close();
+            if(resultaat.ProductName == null || resultaat.ProductName == "")
+            {
+                resultaat.ProductName = "(PRODUCT NIET MEER BESCHIKBAAR)";
+            }
             return resultaat;
         }
         public static int SaveProduct(Product newProduct, IEnumerable<Claim> claims)

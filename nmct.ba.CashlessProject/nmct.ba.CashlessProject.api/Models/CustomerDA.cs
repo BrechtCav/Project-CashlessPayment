@@ -13,7 +13,7 @@ namespace nmct.ba.CashlessProject.api.Models
         public static List<Customer> GetCustomers()
         {
             List<Customer> resultaat = new List<Customer>();
-            DbDataReader reader = Database.GetData(Database.GetConnection("ConnectionString"), "SELECT * FROM RSCA.dbo.Customer");
+            DbDataReader reader = Database.GetData(Database.GetConnection("ConnectionString"), "SELECT * FROM Scouts.dbo.Customer");
             while (reader.Read())
             {
                 Customer c = new Customer();
@@ -33,7 +33,7 @@ namespace nmct.ba.CashlessProject.api.Models
         }
         public static int SaveCustomer(Customer newcustomer)
         {
-            string sql = "INSERT INTO RSCA.dbo.Customer VALUES(@CustomerName,@Address,@Balance,@NationalNumber,@Picture)";
+            string sql = "INSERT INTO Scouts.dbo.Customer VALUES(@CustomerName,@Address,@Balance,@NationalNumber,@Picture)";
             DbParameter par1 = Database.AddParameter("ConnectionString", "@CustomerName", newcustomer.Name);
             DbParameter par2 = Database.AddParameter("ConnectionString", "@Address", newcustomer.Address);
             DbParameter par3 = Database.AddParameter("ConnectionString", "@Balance", newcustomer.Balance);

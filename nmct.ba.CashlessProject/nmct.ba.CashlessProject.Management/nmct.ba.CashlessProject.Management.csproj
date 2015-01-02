@@ -88,12 +88,16 @@
     <Compile Include="Converters\PasswordBoxAssistant.cs" />
     <Compile Include="Converters\StringToImageConverter.cs" />
     <Compile Include="ViewModel\ApplicationVM.cs" />
+    <Compile Include="ViewModel\InstellingenVM.cs" />
     <Compile Include="ViewModel\KassaVM.cs" />
     <Compile Include="ViewModel\KlantVM.cs" />
     <Compile Include="ViewModel\LoginVM.cs" />
     <Compile Include="ViewModel\MedewerkerVM.cs" />
     <Compile Include="ViewModel\PageOneVM.cs" />
     <Compile Include="ViewModel\StatistiekVM.cs" />
+    <Compile Include="View\Instellingen.xaml.cs">
+      <DependentUpon>Instellingen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Kassa.xaml.cs">
       <DependentUpon>Kassa.xaml</DependentUpon>
     </Compile>
@@ -112,6 +116,10 @@
     <Compile Include="View\Statistiek.xaml.cs">
       <DependentUpon>Statistiek.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\Instellingen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Kassa.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

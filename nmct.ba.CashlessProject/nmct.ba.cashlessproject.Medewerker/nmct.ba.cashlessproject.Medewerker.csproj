@@ -34,6 +34,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="beid35libCS, Version=3.5.3.6193, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\beid35libCS.dll</HintPath>
+    </Reference>
     <Reference Include="GalaSoft.MvvmLight">
       <HintPath>..\packages\MvvmLightLibs.5.0.2.0\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
     </Reference>
@@ -89,14 +93,22 @@
     <Compile Include="Converters\StringToImageConverter.cs" />
     <Compile Include="ViewModel\ApplicationVM.cs" />
     <Compile Include="ViewModel\BestellingVM.cs" />
+    <Compile Include="ViewModel\InstellingenVM.cs" />
     <Compile Include="ViewModel\PageOneVM.cs" />
     <Compile Include="View\Bestelling.xaml.cs">
       <DependentUpon>Bestelling.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Instellingen.xaml.cs">
+      <DependentUpon>Instellingen.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PageOne.xaml.cs">
       <DependentUpon>PageOne.xaml</DependentUpon>
     </Compile>
     <Page Include="View\Bestelling.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Instellingen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

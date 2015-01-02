@@ -36,13 +36,13 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <ListBox ItemsSource="{Binding EindResultaat}" x:Name="lstStatistieken" HorizontalAlignment="Left" Height="407.12" Grid.RowSpan="11" VerticalAlignment="Top" Width="1178.4" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="5" Margin="0,10,0,0"/>
+        <ListBox ItemsSource="{Binding EindResultaat}" x:Name="lstStatistieken" HorizontalAlignment="Left" Height="357" Grid.RowSpan="11" VerticalAlignment="Top" Width="1178" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="5" Margin="0.4,23.2,0,0"/>
         <ComboBox ItemsSource="{Binding KassaList}" SelectedItem="{Binding SelectedKassa}" x:Name="cboStatistiekenKassa" Grid.Column="3" HorizontalAlignment="Left" Margin="133.2,6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="246.4" Grid.ColumnSpan="2" Height="26.44">
-        <ComboBox.ItemContainerStyle>
-            <Style TargetType="ComboBoxItem">
-                <Setter Property="Height" Value="20"/>
-            </Style>
-        </ComboBox.ItemContainerStyle>
+            <ComboBox.ItemContainerStyle>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="Height" Value="20"/>
+                </Style>
+            </ComboBox.ItemContainerStyle>
         </ComboBox>
         <ComboBox ItemsSource="{Binding ProductList}" SelectedItem="{Binding SelectedProduct}" x:Name="cboStatistiekenProduct" Grid.Column="4" HorizontalAlignment="Left" Margin="202.4,6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="244" Grid.ColumnSpan="2">
             <ComboBox.ItemContainerStyle>
@@ -58,5 +58,6 @@
         <Label x:Name="lblStatistiekenKassa" Content="Kassa" Grid.Column="3" HorizontalAlignment="Left" Margin="133.2,5.96,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblStatistiekenProduct" Content="Product" Grid.Column="4" HorizontalAlignment="Left" Margin="202.4,5.96,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="68.8"/>
         <Button Command="{Binding Zoek}" x:Name="btnStatistiekenZoek" Content="Zoek" Grid.Column="1" HorizontalAlignment="Left" Height="26.44" Margin="0.8,5,0,0" Grid.Row="2" VerticalAlignment="Top" Width="244" Grid.ColumnSpan="2"/>
+        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="22.4,6.8,0,0" Grid.Row="2" TextWrapping="Wrap" Text="{Binding PerProduct}" VerticalAlignment="Top" Grid.ColumnSpan="4" Width="912" FontSize="16"/>
     </Grid>
 </UserControl>

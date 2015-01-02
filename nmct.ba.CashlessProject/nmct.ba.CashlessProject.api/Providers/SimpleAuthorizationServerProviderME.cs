@@ -25,6 +25,10 @@ namespace nmct.ba.CashlessProject.api.Providers
                 return Task.FromResult(0);
             }
             var id = new ClaimsIdentity(context.Options.AuthenticationType);
+            id.AddClaim(new Claim("dblogin", "Scouts"));
+            id.AddClaim(new Claim("organisatie", "Scouts"));
+            id.AddClaim(new Claim("dbpassword", "Scouts"));
+            id.AddClaim(new Claim("dbname", "Scouts"));
             context.Validated(id);
             return Task.FromResult(0);
         }

@@ -6,7 +6,7 @@
              xmlns:vm="clr-namespace:nmct.ba.CashlessProject.Management.ViewModel"
              xmlns:p="clr-namespace:nmct.ba.CashlessProject.Management.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="568.8" d:DesignWidth="1270">
+             d:DesignHeight="720" d:DesignWidth="1270">
     <UserControl.DataContext>
         <vm:LoginVM/>
     </UserControl.DataContext>
@@ -39,13 +39,16 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBox Text="{Binding Username}" Margin="243.4,37.4,1.4,0.8" Grid.ColumnSpan="3" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" FontSize="20"/>
+        <TextBox Text="{Binding Username}" Margin="38.4,2,206.4,46" Grid.ColumnSpan="3" Grid.Column="2" Grid.Row="6" FontSize="16" Grid.RowSpan="2"/>
         <PasswordBox x:Name="PasswordBox"
-      p:PasswordBoxAssistant.BindPassword="true"  p:PasswordBoxAssistant.BoundPassword="{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Margin="0.4,0.2,0.4,0.4" Grid.Row="5" Grid.ColumnSpan="2" FontSize="20"/>
-
-        <Button Content="Aanmelden" Command="{Binding LoginCommand}" Margin="0.4,0.6,244.4,0.8" Grid.Column="3" Grid.Row="8" Grid.ColumnSpan="2"/>
-        <TextBlock Foreground="Red" Text="{Binding Error}" Grid.Column="2" Margin="243.4,0.2,1.4,37.8" Grid.Row="11" Grid.RowSpan="2" Grid.ColumnSpan="3"/>
-        <TextBlock Grid.Column="2"  HorizontalAlignment="Left" Margin="0.4,2.8,0,0" Grid.Row="2" Grid.RowSpan="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" Grid.ColumnSpan="2" Height="39" FontSize="20"><Run Text="Login"/><Run Text=":"/></TextBlock>
-        <TextBlock Grid.Column="2"  HorizontalAlignment="Left" Margin="0.4,4.2,0,0" Grid.Row="5" Grid.RowSpan="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" Grid.ColumnSpan="2" Height="39" FontSize="20"><Run Text="Paswoord"/><Run Text=":"/></TextBlock>
+      p:PasswordBoxAssistant.BindPassword="true"  p:PasswordBoxAssistant.BoundPassword="{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Margin="38.4,2,206.4,46" Grid.Row="8" Grid.ColumnSpan="3" FontSize="16" Grid.RowSpan="2"/>
+        <Border Grid.ColumnSpan="3" Grid.RowSpan="11" Grid.Row="2" Grid.Column="2" BorderBrush="Black" BorderThickness="2" Margin="0.4,2,0.4,46"/>
+        <Border Grid.ColumnSpan="3" Grid.RowSpan="3" Grid.Row="10" Grid.Column="2" BorderThickness="2" Background="#FFE3E3E3" Margin="0.4,2,0.4,46"/>
+        <Button Content="Aanmelden" Command="{Binding LoginCommand}" Margin="214.4,17,30.4,22" Grid.Column="3" Grid.Row="10" Grid.ColumnSpan="2" Grid.RowSpan="2" Background="White"/>
+        <TextBlock Foreground="Red" Text="{Binding Error}" Grid.Column="2" Margin="38.4,7,206.4,31" Grid.Row="9" Grid.RowSpan="2" Grid.ColumnSpan="3"/>
+        <TextBlock Grid.Column="2"  HorizontalAlignment="Left" Margin="38.4,39,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" Grid.ColumnSpan="2" Height="39" FontSize="20" Grid.RowSpan="2"><Run Text="Login"/><Run Text=":"/></TextBlock>
+        <TextBlock Grid.Column="2"  HorizontalAlignment="Left" Margin="38.4,8,0,0" Grid.Row="7" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" Grid.ColumnSpan="2" Height="39" FontSize="20"><Run Text="Paswoord"/><Run Text=":"/></TextBlock>
+        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="2.4,3,0,0" Grid.Row="2" TextWrapping="Wrap" Text="Management Login" VerticalAlignment="Top" Grid.RowSpan="2" Grid.ColumnSpan="3" Height="75" Width="728" FontSize="40" TextAlignment="Center" Foreground="White" Background="#FFB0CF44"/>
+        <TextBlock Grid.Column="2"  HorizontalAlignment="Left" Margin="198.4,35,0,0" Grid.Row="13" Grid.RowSpan="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="369" Height="39" Text="Designed and programmed by Brecht caveye  - All Rights Reserveed" Grid.ColumnSpan="3"/>
     </Grid>
 </UserControl>

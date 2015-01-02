@@ -24,6 +24,14 @@ namespace nmct.ba.CashlessProject.Klant.ViewModel
             get { return "First page"; }
         }
         public List<Customer> CustomersDB { get; set; }
+        private async void GetCustomers()
+        {
+            int ListCust = await GetCustomersFromDB();
+            if (ListCust == 1)
+            {
+                Loaded = 1;
+            }
+        }
         public PageOneVM()
         {
             GetCustomers();
@@ -39,14 +47,6 @@ namespace nmct.ba.CashlessProject.Klant.ViewModel
 
 
         public int Loaded = 0;
-        private async void GetCustomers()
-        {
-            int ListCust = await GetCustomersFromDB();
-            if( ListCust == 1 )
-            {
-                Loaded = 1;
-            }
-        }
         private string _intro = "Welkom bij KV Kortrijk";
         public string Intro
         {

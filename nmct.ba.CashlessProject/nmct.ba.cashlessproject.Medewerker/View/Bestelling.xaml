@@ -4,11 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:nmct.ba.cashlessproject.Medewerker.ViewModel"
+             xmlns:c="clr-namespace:nmct.ba.CashlessProject.Medewerker.Converters"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="568.8" d:DesignWidth="1270">
     <UserControl.DataContext>
         <vm:BestellingVM/>
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <c:StringToImageConverter x:Key="StringToImageConverter"/>
+    </UserControl.Resources>
     <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>
@@ -36,5 +41,43 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <ComboBox SelectedItem="{Binding SelectedProduct}"  ItemsSource="{Binding ProductLijst}"  Grid.Column="2" HorizontalAlignment="Left" Margin="1.2,22.4,0,0" VerticalAlignment="Top" Width="203" Grid.RowSpan="2" Height="38" Grid.ColumnSpan="2" Grid.Row="1"/>
+        <Button Command="{Binding Toevoegen}" Content="Toevoegen" Grid.Column="3" Grid.ColumnSpan="1" Grid.Row="4" Grid.RowSpan="1"  Margin="10,0,10,0" />
+        <Button Command="{Binding DeleteProductSale}" Content="Geselecteerde verwijderen" Grid.Column="3" Grid.ColumnSpan="1" Grid.Row="10" Grid.RowSpan="1" Margin="10,0,10,0" />
+        <Button Command="{Binding AmountUp}" Content="˄" Grid.Column="2" HorizontalAlignment="Left" Margin="110.2,0.2,0,0" Grid.Row="3" VerticalAlignment="Top" Width="38" Height="19"  />
+        <Button Command="{Binding AmountDown}" Content="˅" Grid.Column="2" HorizontalAlignment="Left" Margin="110.2,18.2,0,0" Grid.Row="3" VerticalAlignment="Top" Width="38" Height="19"  />
+        <TextBox Grid.Column="2" HorizontalAlignment="Left" Height="37" Margin="148.2,0.2,0,0" Grid.Row="3" TextWrapping="Wrap" Text="{Binding Amount}" VerticalAlignment="Top" Width="55" FontSize="24" TextAlignment="Center"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="0.4,10.2,0,0" Grid.Row="3" TextWrapping="Wrap" Text="Aantal:" VerticalAlignment="Top" Width="92"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="0.4,32.4,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Product" VerticalAlignment="Top" Width="92" Grid.RowSpan="2"/>
+        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="1.2,10.6,0,0" Grid.Row="12" TextWrapping="Wrap" Text="Totaal:" VerticalAlignment="Top" Width="92"/>
+        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="0.2,12.6,0,0" Grid.Row="12" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
+        <Button Command="{Binding BestellingAfronden}" Content="Bestelling afronden" Grid.Column="3" Grid.ColumnSpan="1" Grid.Row="13" Grid.RowSpan="1" Margin="10,0,10,0" />
+        <Button Command="{Binding BestellingAnnuleren}" Content="Annuleren" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="13" Grid.RowSpan="1" Margin="10,0,10,0" />
+        <DataGrid SelectedItem="{Binding SelectedProductSale}" CanUserAddRows="False" ItemsSource="{Binding ListProductSale}" AutoGenerateColumns="False" Grid.ColumnSpan="3" Grid.Column="1" Grid.RowSpan="5" Grid.Row="5" Margin="0,10,10,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Aantal" Width="100" Binding="{Binding AmountPR}" />
+                <DataGridTextColumn Header="Product" Width="300" Binding="{Binding ProductID}" />
+                <DataGridTextColumn Header="Subtotaal" Width="200" Binding="{Binding Totalprice}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBlock Grid.Column="3" HorizontalAlignment="Left" Margin="10,10.6,0,0" Grid.Row="12" TextWrapping="Wrap" Text="{Binding Totaal}" VerticalAlignment="Top" Width="136"/>
+        <TextBlock Grid.Column="3" HorizontalAlignment="Left" Margin="151,10.6,0,0" Grid.Row="12" TextWrapping="Wrap" Text="€" VerticalAlignment="Top" Width="43"/>
+        <TextBlock Text="Naam:" FontSize="16" TextAlignment="Left"  Grid.Row="2" Grid.Column="4" Margin="77,1.8,27.2,9.8" />
+        <TextBlock Text="{Binding LoadedCustomer.Name}" FontSize="16" TextAlignment="Left"  Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="3" Margin="176,1.8,39.4,10.8" />
+        <TextBlock Text="Saldo:" FontSize="16" TextAlignment="Left"  Grid.Row="10" Grid.Column="4" Margin="77,3.6,27.2,8.8" />
+        <TextBlock Text="{Binding LoadedCustomer.Balance}" FontSize="16" TextAlignment="Left"  Grid.Row="10" Grid.Column="4" Grid.ColumnSpan="3" Margin="176,3.6,39.4,9.8" />
+        <TextBlock Text="Foto:" FontSize="16" TextAlignment="Left"  Grid.Row="3" Grid.Column="4" Margin="77,15.2,27.2,34.8" Grid.RowSpan="2" />
+        <Image Source="{Binding LoadedCustomer.Picture, Converter={StaticResource StringToImageConverter}, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2" Grid.Column="4" Margin="176,15.2,34.2,15.4" Grid.Row="3" Grid.RowSpan="7"/>
+        <TextBlock Grid.Column="4" HorizontalAlignment="Left" Margin="0,5.4,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Klant" VerticalAlignment="Top" FontSize="20"/>
+        <TextBlock Grid.Column="4" Grid.ColumnSpan="3" Grid.Row="12" Margin="80,0,20,0" Text="{Binding KlantMelding}" FontSize="20" Foreground="Red"/>
+        <ComboBox SelectedItem="{Binding SelectedCategorie}"  ItemsSource="{Binding CatList}"  Grid.Column="2" HorizontalAlignment="Left" Margin="1.2,9,0,0" VerticalAlignment="Top" Width="203" Grid.RowSpan="2" Height="38" Grid.ColumnSpan="2">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding GetProductencbo}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="0.4,21,0,0" TextWrapping="Wrap" Text="Categorie" VerticalAlignment="Top" Width="92"/>
+        <Button Command="{Binding EIDLezen}" Content="Lees eID" Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2"  Margin="203.8,1.4,19.4,35.8" />
     </Grid>
 </UserControl>

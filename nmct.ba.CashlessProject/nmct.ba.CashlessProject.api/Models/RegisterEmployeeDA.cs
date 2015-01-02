@@ -42,5 +42,16 @@ namespace nmct.ba.CashlessProject.api.Models
                 Until = Convert.ToDateTime(record["UntilTime"]),
             };
         }
+        public static int SaveLogin(Register_Employee newLogin, IEnumerable<Claim> claims)
+        {
+            string sql = "INSERT INTO Register_Employee VALUES(@RegisterID,@EmployeeID,@FromTime,@UntilTime)";
+            DbParameter par1 = Database.AddParameter("ConnectionString", "@RegisterID", newLogin.RegisterID.RegisterID);
+            DbParameter par2 = Database.AddParameter("ConnectionString", "@EmployeeID", newLogin.EmployeeID.ID);
+            DbParameter par3 = Database.AddParameter("ConnectionString", "@FromTime", newLogin.From);
+            DbParameter par4 = Database.AddParameter("ConnectionString", "@UntilTime", newLogin.Until);
+            int id = Database.InsertData(Database.GetConnection(CreateConnectionString(claims)), sql, par1, par2, par3, par4);
+            return id;
+
+        }
     }
 }

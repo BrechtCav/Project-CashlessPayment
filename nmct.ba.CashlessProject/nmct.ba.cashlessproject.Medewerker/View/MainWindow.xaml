@@ -16,6 +16,9 @@
         <DataTemplate DataType="{x:Type vm:BestellingVM}">
             <v:Bestelling/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:InstellingenVM}">
+            <v:Instellingen/>
+        </DataTemplate>
     </Window.Resources>
     <Grid Height="688.8" Width="1270">
         <Grid.RowDefinitions>
@@ -30,6 +33,8 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="71,45,0,0" TextWrapping="Wrap" Text="Cashless Payment System" VerticalAlignment="Top" Grid.ColumnSpan="4" Height="75" Width="732" FontSize="48" TextAlignment="Center" Foreground="#FFB0CF44"/>
+
         <Grid  Visibility="{Binding MenuVisibility, Converter={StaticResource BoolToVisibility}}" Background="#FFB0CF44" Grid.ColumnSpan="6" Grid.RowSpan="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -69,8 +74,8 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <TextBlock x:Name="txbOrganisatie"  Text="Organisatie:" Grid.ColumnSpan="2" Grid.Column="12" TextAlignment="Left" Margin="0.2,0,0.4,0" />
-            <TextBlock x:Name="txbOrganisatiegekozen"  Text="{Binding Organisatie}" Grid.ColumnSpan="2" Grid.Column="12" TextAlignment="Left" Margin="0.2,0,0.4,0" Grid.Row="1" />
+            <TextBlock  Text="Kassa:" Grid.ColumnSpan="2" Grid.Column="12" TextAlignment="Left" Margin="0.2,0,0.4,0" />
+            <TextBlock  Text="{Binding GekozenKassa.RegisterName}" Grid.ColumnSpan="2" Grid.Column="12" TextAlignment="Left" Margin="0.2,0,0.4,0" Grid.Row="1" />
             <Button Command="{Binding LogOff}" Content="Uitloggen" Grid.Column="12" HorizontalAlignment="Left" Margin="0.2,0,0,0" Grid.Row="3" VerticalAlignment="Top" Width="181" Grid.ColumnSpan="2" Height="20" />
             <TextBlock   Text="{Binding Tijd}" Grid.ColumnSpan="2" Grid.Column="12" TextAlignment="Left" Margin="0.2,0,0.4,0" Grid.Row="5" />
         </Grid>

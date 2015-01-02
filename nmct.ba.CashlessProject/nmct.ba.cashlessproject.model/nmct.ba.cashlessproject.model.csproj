@@ -41,7 +41,9 @@
     <Compile Include="IT_Errorlog.cs" />
     <Compile Include="IT_Register.cs" />
     <Compile Include="Organisation.cs" />
+    <Compile Include="Password.cs" />
     <Compile Include="Product.cs" />
+    <Compile Include="ProductSale.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Register.cs" />
     <Compile Include="Register_Employee.cs" />

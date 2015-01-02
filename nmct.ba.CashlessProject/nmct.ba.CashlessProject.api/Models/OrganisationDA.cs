@@ -2,14 +2,25 @@
 using nmct.ba.CashlessProject.api.Helper;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Common;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 
 namespace nmct.ba.CashlessProject.api.Models
 {
     public class OrganisationDA
     {
+        public static int ChangePassword(Password NewPas)
+        {
+                string sql = "UPDATE Organisations SET Password = @Password WHERE Login = @Login";
+                string newpas = NewPas.NewPassword;
+                DbParameter par1 = Database.AddParameter("AdminDB", "@Password", Cryptography.Encrypt(newpas));
+                DbParameter par2 = Database.AddParameter("AdminDB", "@Login", NewPas.Login);
+                int id = Database.InsertData(Database.GetConnection("AdminDB"), sql, par1, par2);
+                return id;
+        }
         public static Organisation CheckCredentials(string username, string password)
         {
             string sql = "SELECT * FROM Organisations WHERE Login=@Login AND Password=@Password";
@@ -46,7 +57,7 @@ namespace nmct.ba.CashlessProject.api.Models
         {
             string sql = "SELECT * FROM Scouts.dbo.Employee WHERE Login=@Login AND Password=@Password";
             DbParameter par1 = Database.AddParameter("ConnectionString", "@Login", username);
-            DbParameter par2 = Database.AddParameter("ConnectionString", "@Password", password);
+            DbParameter par2 = Database.AddParameter("ConnectionString", "@Password", Cryptography.Encrypt(password));
             try
             {
                 DbDataReader reader = Database.GetData(Database.GetConnection("ConnectionString"), sql, par1, par2);

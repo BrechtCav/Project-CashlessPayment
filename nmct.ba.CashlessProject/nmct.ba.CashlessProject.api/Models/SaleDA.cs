@@ -35,16 +35,15 @@ namespace nmct.ba.CashlessProject.api.Models
         }
         private static Sale Create(IDataRecord record, IEnumerable<Claim> claims)
         {
-            return new Sale()
-            {
-                ID = Convert.ToInt32(record["ID"]),
-                Timestamp = Convert.ToDateTime(record["TimeOfSale"]),
-                ProductID = ProductDA.GetProduct(Convert.ToInt32(record["ProductID"]), claims),
-                CustomerID = CustomerMADA.GetCustomer(Convert.ToInt32(record["CustomerID"]), claims),
-                RegisterID = RegisterDA.GetRegister(Convert.ToInt32(record["RegisterID"]), claims),
-                Amount = Convert.ToInt32(record["Amount"]),
-                Totalprice = Convert.ToDouble(record["TotalPrice"])
-            };
+            Sale Verkoop = new Sale();
+            Verkoop.ID = Convert.ToInt32(record["ID"]);
+            Verkoop.Timestamp = Convert.ToDateTime(record["TimeOfSale"]);
+            Verkoop.ProductID = ProductDA.GetProduct(Convert.ToInt32(record["ProductID"]), claims);
+            Verkoop.CustomerID = CustomerMADA.GetCustomer(Convert.ToInt32(record["CustomerID"]), claims);
+            Verkoop.RegisterID = RegisterDA.GetRegister(Convert.ToInt32(record["RegisterID"]), claims);
+            Verkoop.Amount = Convert.ToInt32(record["Amount"]);
+            Verkoop.Totalprice = Convert.ToDouble(record["TotalPrice"]);
+            return Verkoop;
         }
         public static DateTime UnixTimeStampToDateTime(double unixTimeStamp)
         {
@@ -52,6 +51,19 @@ namespace nmct.ba.CashlessProject.api.Models
             System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
             dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
             return dtDateTime;
+        }
+        public static int SaveSale(Sale newSale, IEnumerable<Claim> claims)
+        {
+            string sql = "INSERT INTO Sale VALUES(@CustomerID,@RegisterID,@ProductID,@Amount,@TotalPrice,@TimeOfSale)";
+            DbParameter par1 = Database.AddParameter("ConnectionString", "@CustomerID", newSale.CustomerID.ID);
+            DbParameter par2 = Database.AddParameter("ConnectionString", "@RegisterID", newSale.RegisterID.RegisterID);
+            DbParameter par3 = Database.AddParameter("ConnectionString", "@ProductID", newSale.ProductID.ID);
+            DbParameter par4 = Database.AddParameter("ConnectionString", "@Amount", newSale.Amount);
+            DbParameter par5 = Database.AddParameter("ConnectionString", "@TotalPrice", newSale.Totalprice);
+            DbParameter par6 = Database.AddParameter("ConnectionString", "@TimeOfSale", DateTime.Now);
+            int id = Database.InsertData(Database.GetConnection(CreateConnectionString(claims)), sql, par1, par2, par3, par4, par5, par6);
+            return id;
+
         }
     }
 }

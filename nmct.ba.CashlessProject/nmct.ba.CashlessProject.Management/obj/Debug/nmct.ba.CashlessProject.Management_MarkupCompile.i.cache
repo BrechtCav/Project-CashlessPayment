@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\BrechtCaveye\Pictures\nmct.ba.CashlessProject\nmct.ba.CashlessProject.Management\obj\Debug\
+C:\Project\Project-CashlessPayment\nmct.ba.CashlessProject\nmct.ba.CashlessProject.Management\obj\Debug\
 nmct.ba.CashlessProject.Management
 none
 false
 DEBUG;TRACE
-C:\Users\BrechtCaveye\Pictures\nmct.ba.CashlessProject\nmct.ba.CashlessProject.Management\App.xaml
-71311621049
+C:\Project\Project-CashlessPayment\nmct.ba.CashlessProject\nmct.ba.CashlessProject.Management\App.xaml
+8213891556
 
-277586964
-25-1569965605
-View\Kassa.xaml;View\Klant.xaml;View\Login.xaml;View\MainWindow.xaml;View\Medewerker.xaml;View\PageOne.xaml;View\Statistiek.xaml;
+29-1660553566
+25-160288845
+View\Instellingen.xaml;View\Kassa.xaml;View\Klant.xaml;View\Login.xaml;View\MainWindow.xaml;View\Medewerker.xaml;View\PageOne.xaml;View\Statistiek.xaml;
 
-True
+False
 

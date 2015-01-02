@@ -28,6 +28,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
             Pages.Add(new KassaVM());
             Pages.Add(new KlantVM());
             Pages.Add(new StatistiekVM());
+            Pages.Add(new InstellingenVM());
             // Add other pages
 
             CurrentPage = StartPages[0];
@@ -127,6 +128,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
             MenuVisibility = false;
             Organisatie = "Organisatie: ";
         }
+
         public void ChangePage(IPage page)
         {
             CurrentPage = page;

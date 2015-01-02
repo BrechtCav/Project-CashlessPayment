@@ -17,5 +17,10 @@ namespace nmct.ba.CashlessProject.api.Controllers
             ClaimsPrincipal p = Request.GetRequestContext().Principal as ClaimsPrincipal;
             return RegisterEmployeeDA.GetRegisterEmployees(id,p.Claims);
         }
+        public int Post(Register_Employee newLogin)
+        {
+            ClaimsPrincipal p = Request.GetRequestContext().Principal as ClaimsPrincipal;
+            return RegisterEmployeeDA.SaveLogin(newLogin, p.Claims);
+        }
     }
 }

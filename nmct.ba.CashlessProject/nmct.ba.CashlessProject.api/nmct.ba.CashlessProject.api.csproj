@@ -173,14 +173,18 @@
     <Compile Include="Controllers\CategorieController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\CustomerMAController.cs" />
+    <Compile Include="Controllers\CustomerMEController.cs" />
     <Compile Include="Controllers\DatabaseInfoController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\EmployeeMEController.cs" />
+    <Compile Include="Controllers\ErrorlogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrganisationController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\RegisterEmployeeController.cs" />
+    <Compile Include="Controllers\RegisterMEController.cs" />
     <Compile Include="Controllers\SaleController.cs" />
     <Compile Include="Controllers\TransferMAController.cs" />
     <Compile Include="Global.asax.cs">
@@ -194,6 +198,7 @@
     <Compile Include="Models\CustomerMADA.cs" />
     <Compile Include="Models\EmployeeDA.cs" />
     <Compile Include="Models\EmployeeMEDA.cs" />
+    <Compile Include="Models\ErrorlogDA.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OrganisationDA.cs" />

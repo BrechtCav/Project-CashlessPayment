@@ -21,6 +21,15 @@ namespace nmct.ba.CashlessProject.api.Models
 
             return Database.CreateConnectionString("System.Data.SqlClient", @"BRECHT", dbname, dblogin, dbpass);
         }
+        public static int ChangePassword(Password NewPas)
+        {
+            string sql = "UPDATE Scouts.dbo.Employee SET Password = @Password WHERE Login = @Login";
+            string newpas = NewPas.NewPassword;
+            DbParameter par1 = Database.AddParameter("ConnectionString", "@Password", Cryptography.Encrypt(newpas));
+            DbParameter par2 = Database.AddParameter("ConnectionString", "@Login", NewPas.Login);
+            int id = Database.InsertData(Database.GetConnection("ConnectionString"), sql, par1, par2);
+            return id;
+        }
         public static List<Employee> GetEmployees(IEnumerable<Claim> claims)
         {
             List<Employee> resultaat = new List<Employee>();
@@ -51,29 +60,34 @@ namespace nmct.ba.CashlessProject.api.Models
                 EmployeeName = record["EmployeeName"].ToString(),
                 Address = record["Address"].ToString(),
                 Email = record["Email"].ToString(),
-                Phone = record["Phone"].ToString()
+                Phone = record["Phone"].ToString(),
+                Login = record["Login"].ToString()
             };
         }
         public static int SaveEmployee(Employee newEmployee, IEnumerable<Claim> claims)
         {
-            string sql = "INSERT INTO Employee VALUES(@Name,@Address,@Email,@Phone)";
-            DbParameter par1 = Database.AddParameter("ConnectionString", "@Name", newEmployee.EmployeeName);
+            string paswoord = "password";
+            string sql = "INSERT INTO Employee VALUES(@EmployeeName,@Address,@Email,@Phone,@Login, @Password)";
+            DbParameter par1 = Database.AddParameter("ConnectionString", "@EmployeeName", newEmployee.EmployeeName);
             DbParameter par2 = Database.AddParameter("ConnectionString", "@Address", newEmployee.Address);
             DbParameter par3 = Database.AddParameter("ConnectionString", "@Email", newEmployee.Email);
             DbParameter par4 = Database.AddParameter("ConnectionString", "@Phone", newEmployee.Phone);
-            int id = Database.InsertData(Database.GetConnection(CreateConnectionString(claims)), sql, par1, par2, par3, par4);
+            DbParameter par5 = Database.AddParameter("ConnectionString", "@Login", newEmployee.Login);
+            DbParameter par6 = Database.AddParameter("ConnectionString", "@Password", paswoord);
+            int id = Database.InsertData(Database.GetConnection(CreateConnectionString(claims)), sql, par1, par2, par3, par4, par5, par6);
             return id;
 
         }
         public static int ChangeEmployee(Employee changeEmployee, IEnumerable<Claim> claims)
         {
-            string sql = "UPDATE Employee SET EmployeeName = @Name, Address = @Address, Email = @Email, Phone = @Phone WHERE ID = @ID";
+            string sql = "UPDATE Employee SET EmployeeName = @Name, Address = @Address, Email = @Email, Phone = @Phone, Login = @Login WHERE ID = @ID";
             DbParameter par1 = Database.AddParameter("ConnectionString", "@Name", changeEmployee.EmployeeName);
             DbParameter par2 = Database.AddParameter("ConnectionString", "@Address", changeEmployee.Address);
             DbParameter par3 = Database.AddParameter("ConnectionString", "@Email", changeEmployee.Email);
             DbParameter par4 = Database.AddParameter("ConnectionString", "@Phone", changeEmployee.Phone);
-            DbParameter par5 = Database.AddParameter("ConnectionString", "@ID", changeEmployee.ID);
-            int id = Database.InsertData(Database.GetConnection(CreateConnectionString(claims)), sql, par1, par2, par3, par4, par5);
+            DbParameter par5 = Database.AddParameter("ConnectionString", "@Login", changeEmployee.Login);
+            DbParameter par6 = Database.AddParameter("ConnectionString", "@ID", changeEmployee.ID);
+            int id = Database.InsertData(Database.GetConnection(CreateConnectionString(claims)), sql, par1, par2, par3, par4, par5, par6);
             return id;
 
         }

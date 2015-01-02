@@ -84,6 +84,13 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
             get { return eindresultaat; }
             set { eindresultaat = value; OnPropertyChanged("EindResultaat"); }
         }
+        //Lijst Met gezochte resultaten
+        private string perproduct;
+        public string PerProduct
+        {
+            get { return perproduct; }
+            set { perproduct = value; OnPropertyChanged("PerProduct"); }
+        }
 #endregion
         
         #region ICommands
@@ -106,24 +113,52 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
         private void ZoekOpdracht()
         {
             //Lijst Ophalen
+            string Resultaat = "";
             List<Sale> lijst = Resultaten;
-            if(SelectedProduct != null)
-            {
-                lijst = lijst.FindAll(s => s.ProductID.ID == selectedproduct.ID);
-            }
-            if(SelectedKassa != null)
-            {
-                lijst = lijst.FindAll(s => s.RegisterID.RegisterID == SelectedKassa.RegisterID);
-            }
             if(FromDate != null)
             {
                 lijst = lijst.FindAll(s => s.Timestamp >= FromDate);
+                Resultaat += "Vanaf " + FromDate.ToString() + " ";
             }
             if(UntilDate != null)
             {
                 lijst = lijst.FindAll(s => s.Timestamp <= UntilDate);
+                Resultaat += "Tot " + UntilDate.ToString() + " ";
+            }
+            if (SelectedKassa != null)
+            {
+                lijst = lijst.FindAll(s => s.RegisterID.RegisterID == SelectedKassa.RegisterID);
+                Resultaat += "Voor kassa " + SelectedKassa.RegisterName + " ";
+            }
+            if (SelectedProduct != null)
+            {
+                lijst = lijst.FindAll(s => s.ProductID.ID == selectedproduct.ID);
+                Resultaat += "Voor product " + SelectedProduct.ProductName + " ";
             }
             EindResultaat = lijst;
+            if(EindResultaat.Count() >= 1)
+            {
+                int amount = 0;
+                double total = 0;
+                foreach (Sale sal in EindResultaat)
+                {
+                    amount += sal.Amount;
+                    total += sal.Totalprice;
+                }
+                if (FromDate == null && UntilDate == null && SelectedKassa == null && SelectedProduct == null)
+                {
+                    Resultaat += "Er zijn " + amount.ToString() + " aantallen verkocht voor een totaalprijs van " + total.ToString() + ".";
+                }
+                else
+                {
+                    Resultaat += "zijn er " + amount.ToString() + " aantallen verkocht voor een totaalprijs van " + total.ToString() + ".";
+                }
+            }
+            else
+            {
+                Resultaat = "Er zijn geen zoekresultaten gevonden";
+            }
+            PerProduct = Resultaat;
         }
         #endregion
 
@@ -141,7 +176,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
                     Resultaten = null;
                     string json = await response.Content.ReadAsStringAsync();
                     List<Sale> result = JsonConvert.DeserializeObject<List<Sale>>(json);
-                    Resultaten = result;
+                    Resultaten = result.OrderByDescending(o => o.Timestamp).ToList();
                     return result;
                 }
             }

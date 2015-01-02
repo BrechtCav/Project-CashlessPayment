@@ -13,6 +13,36 @@ namespace nmct.ba.CashlessProject.api.Models
 {
     public class CustomerMADA
     {
+        private static ConnectionStringSettings CreateConnectionStringME(IEnumerable<Claim> claims)
+        {
+            string dblogin = "Scouts";
+            string dbpass = "Scouts";
+            string dbname = "Scouts";
+
+            return Database.CreateConnectionString("System.Data.SqlClient", @"BRECHT", dbname, dblogin, dbpass);
+        }
+        public static List<Customer> GetCustomersME(IEnumerable<Claim> claims)
+        {
+            List<Customer> resultaat = new List<Customer>();
+            string sql = "SELECT * FROM Customer";
+            DbDataReader reader = Database.GetData(Database.GetConnection(CreateConnectionStringME(claims)), sql);
+            while (reader.Read())
+            {
+                Customer c = new Customer();
+                c.ID = Convert.ToInt32(reader["ID"]);
+                c.Name = reader["CustomerName"].ToString();
+                c.NationalNumber = reader["NationalNumber"].ToString();
+                c.Address = reader["Address"].ToString();
+                c.Balance = Double.Parse(reader["Balance"].ToString());
+                if (!DBNull.Value.Equals(reader["Picture"]))
+                    c.Picture = (byte[])reader["Picture"];
+                else
+                    c.Picture = new byte[0];
+                resultaat.Add(c);
+            }
+            reader.Close();
+            return resultaat;
+        }
         private static ConnectionStringSettings CreateConnectionString(IEnumerable<Claim> claims)
         {
             string dblogin = claims.FirstOrDefault(c => c.Type == "dblogin").Value;

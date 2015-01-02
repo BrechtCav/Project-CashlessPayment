@@ -24,9 +24,18 @@ namespace nmct.ba.cashlessproject.Medewerker.ViewModel
         }
         public PageOneVM()
         {
-            klok();
+            GetRegisters();
+            Message = "Bezig met laden... Even geduld.";
+            btnAanmelden = false;
+
         }
 
+        private bool btnAanmelden = false;
+        public bool BTNAanmelden
+        {
+            get { return btnAanmelden; }
+            set { btnAanmelden = value; OnPropertyChanged("BTNAanmelden"); }
+        }    
         private string _message;
         public string Message
         {
@@ -51,39 +60,73 @@ namespace nmct.ba.cashlessproject.Medewerker.ViewModel
             get { return _password; }
             set { _password = value; OnPropertyChanged("Password"); }
         }
-        DispatcherTimer dispatcherTimer = new DispatcherTimer();
-        public void klok()
+        private Register selectedkassa;
+        public Register SelectedKassa
         {
-            dispatcherTimer.Tick += new EventHandler(this.kloktik);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
-            dispatcherTimer.Start();
+            get { return selectedkassa; }
+            set { selectedkassa = value; OnPropertyChanged("SelectedKassa"); }
         }
-
-        private void kloktik(object sender, EventArgs e)
+        private List<Register> kassalijst;
+        public List<Register> KassaLijst
         {
-            string dag = DateTimeFormatInfo.CurrentInfo.GetDayName(DateTime.Now.DayOfWeek);
-            Tijd = char.ToUpper(dag[0]) + dag.Substring(1) + " " + DateTime.Now.ToString();
+            get { return kassalijst; }
+            set { kassalijst = value; OnPropertyChanged("KassaLijst"); }
+        }
+        private List<Employee> listemployees;
+        public List<Employee> ListEmployees
+        {
+            get { return listemployees; }
+            set { listemployees = value; OnPropertyChanged("ListEmployees"); }
         }
         public ICommand LoginCommand
         {
             get { return new RelayCommand(Loginco); }
         }
         // Login Method
-        private void Loginco()
+        private async void Loginco()
         {
-            ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
-            ApplicationVM.token = GetToken();
-
-            if (!ApplicationVM.token.IsError)
+            if(SelectedKassa != null)
             {
-                appvm.MenuVisibility = true;
-                //Naar product pagina gaan
-                appvm.ChangePage(new BestellingVM());
+                ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
+                appvm.ToonRegister(SelectedKassa);
+                ApplicationVM.token = GetToken();
+
+                if (!ApplicationVM.token.IsError)
+                {
+                    List<Employee> emplist = new List<Employee>();
+                    emplist = await GetEmployees();
+                    ListEmployees = emplist;
+                    foreach(Employee emp in ListEmployees)
+                    {
+                        string log = emp.Login;
+                        if(log.Equals(Login))
+                        {
+                            appvm.GekozenEmployee = emp;
+                            appvm.From = DateTime.Now;
+                        }
+                    }
+                    InstellingenVM.Login = Login;
+                    appvm.MenuVisibility = true;
+                    //Naar product pagina gaan
+                    appvm.ChangePage(new BestellingVM());
+                }
+                else
+                {
+                    Message = "Gelieve de correcte login gegevens in te vullen.";
+                }
             }
             else
             {
-                Message = "Niet gelukt";
+                Message = "Gelieve een kassa te kiezen.";
             }
+        }
+        private async void GetRegisters()
+        {
+            List<Register> reglijst = new List<Register>();
+            reglijst = await GetList();
+            KassaLijst = reglijst;
+            BTNAanmelden = true;
+            Message = "";
         }
         //Verkrijgen van token
         private TokenResponse GetToken()
@@ -91,5 +134,39 @@ namespace nmct.ba.cashlessproject.Medewerker.ViewModel
             OAuth2Client client = new OAuth2Client(new Uri("http://localhost:7695/tokenME"));
             return client.RequestResourceOwnerPasswordAsync(Login, Password).Result;
         }
+        public async Task<List<Employee>> GetEmployees()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.SetBearerToken(ApplicationVM.token.AccessToken);
+                string url = string.Format("{0}{1}", URL, "/employee");
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    string json = await response.Content.ReadAsStringAsync();
+                    List<Employee> result = JsonConvert.DeserializeObject<List<Employee>>(json);
+                    ListEmployees = result.OrderBy(o => o.EmployeeName).ToList();
+                    return result;
+                }
+            }
+            return null;
+        }
+        public async Task<List<Register>> GetList()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string url = string.Format("{0}{1}", URL, "/registerME");
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    string json = await response.Content.ReadAsStringAsync();
+                    List<Register> result = JsonConvert.DeserializeObject<List<Register>>(json);
+                    result = result.OrderBy(o => o.RegisterName).ToList(); ;
+                    return result;
+                }
+            }
+            return null;
+        }
+
     }
 }

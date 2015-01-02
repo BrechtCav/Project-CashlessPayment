@@ -12,6 +12,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
     class LoginVM : ObservableObject, IPage
     {
         ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
+        InstellingenVM ivm = App.Current.MainWindow.DataContext as InstellingenVM;
         public string Name
         {
             get { return "Login"; }
@@ -48,7 +49,7 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
         {
             ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
             ApplicationVM.token = GetToken();
-
+            InstellingenVM.Login = Username;
             if (!ApplicationVM.token.IsError)
             {
                 //Tonen van menu
