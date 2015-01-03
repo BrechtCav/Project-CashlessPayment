@@ -29,6 +29,23 @@ namespace nmct.ba.CashlessProject.Klant.ViewModel
             get{return eidpic;}
             set{eidpic = value; OnPropertyChanged("eIDPic");}
         }
-        public static Customer Customer { get; set; }
+        public ICommand GeldOpladen
+        {
+            get { return new RelayCommand(Opladen); }
+        }
+        public ICommand Uitloggen
+        {
+            get { return new RelayCommand(Loguit); }
+        }
+        private void Opladen()
+        {
+            appvm.ChangePage(new SaldoVM());
+        }
+        private void Loguit()
+        {
+            appvm.ChangePage(new PageOneVM());
+        }
+        public static Customer SelectedCustomer { get; set; }
+
     }
 }

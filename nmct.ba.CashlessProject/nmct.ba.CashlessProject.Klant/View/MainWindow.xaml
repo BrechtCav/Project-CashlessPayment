@@ -17,6 +17,9 @@
         <DataTemplate DataType="{x:Type vm:NewAccountVM}">
             <v:NewAccount/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SaldoVM}">
+            <v:SaldoVerhogen/>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         <!-- 

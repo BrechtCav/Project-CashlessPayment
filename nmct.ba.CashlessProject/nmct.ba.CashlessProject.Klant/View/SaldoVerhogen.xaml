@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:nmct.ba.CashlessProject.Klant.ViewModel"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="470" d:DesignWidth="790">
     <UserControl.DataContext>
@@ -42,15 +43,18 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Image x:Name="imgVideo" Stretch="Fill" Grid.ColumnSpan="5" Grid.Column="3" Margin="98.6,25.2,0,0.4" Grid.Row="6" Grid.RowSpan="10" HorizontalAlignment="Left" Width="395"   />
+        <Image x:Name="imgVideo" Stretch="Fill" Grid.ColumnSpan="5" Grid.Column="3" Margin="99,23.6,0,2" Grid.Row="9" Grid.RowSpan="8" HorizontalAlignment="Left" Width="395"   />
         <TextBlock Text="Huidig saldo:" FontSize="16" TextAlignment="Left"  Grid.Row="2" Grid.Column="1" />
-        <TextBlock Text="" FontSize="16" TextAlignment="Left"  Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3" />
+        <TextBlock Text="{Binding HuidigSaldo}" FontSize="16" TextAlignment="Left"  Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3" />
         <TextBlock Text="Bijkomend saldo:" FontSize="16" TextAlignment="Left"  Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" />
-        <TextBox Text="" FontSize="16" TextAlignment="Left"  Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" />
         <TextBlock Text="Saldo na verhoging:" Grid.ColumnSpan="2" FontSize="16" TextAlignment="Left"  Grid.Row="6" Grid.Column="1" />
-        <TextBlock Text="" FontSize="16" TextAlignment="Left"  Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2" />
-        <Button  Content="Scan Biljet"  Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
-        <Button  Content="Annuleren"  Grid.Column="1" Grid.Row="12" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+        <TextBlock Text="{Binding TotaalSaldo}" FontSize="16" TextAlignment="Left"  Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2" />
+        <Button  Command="{Binding Opladen}" Content="Opladen" Grid.Row="9" Grid.ColumnSpan="3" Grid.RowSpan="3" Margin="98,23.6,0,2.8"/>
+        <Button Command="{Binding Annuleren}" Content="Annuleren" Grid.Row="12" Grid.ColumnSpan="3" Grid.RowSpan="3" Margin="98,24.2,0,2"/>
+        <TextBlock Text="{Binding Melding}" Grid.ColumnSpan="8" FontSize="16" TextAlignment="Left"  Grid.Row="7" Margin="98,25.6,2.88,0.4" Grid.RowSpan="2" Foreground="Red" />
+        <Button Command="{Binding AmountUp}" Content="˄" Grid.Column="2" HorizontalAlignment="Left" Margin="79,16.6,0,0" Grid.Row="3" VerticalAlignment="Top" Width="38" Height="19"  Grid.ColumnSpan="2" Grid.RowSpan="2"  />
+        <Button Command="{Binding AmountDown}" Content="˅" Grid.Column="2" HorizontalAlignment="Left" Margin="79,9.2,0,0" Grid.Row="4" VerticalAlignment="Top" Width="38" Height="19"  Grid.ColumnSpan="2" Grid.RowSpan="2"  />
+        <TextBox Grid.Column="3" HorizontalAlignment="Left" Height="37" Margin="23.6,16.6,0,0" Grid.Row="3" TextWrapping="Wrap" Text="{Binding Amount}" VerticalAlignment="Top" Width="55" FontSize="24" TextAlignment="Center" Grid.RowSpan="3"/>
 
     </Grid>
 </UserControl>

@@ -46,15 +46,15 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Text="Naam:" FontSize="16" TextAlignment="Left"  Grid.Row="2" Grid.Column="1" />
-        <TextBlock Text="{Binding Customer.Name }" FontSize="16" TextAlignment="Left"  Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="5" Margin="0.4,0.2,99,0.4" />
+        <TextBlock Text="{Binding SelectedCustomer.Name }" FontSize="16" TextAlignment="Left"  Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="5" Margin="0.4,0.2,99,0.4" />
         <TextBlock Text="Adres:" FontSize="16" TextAlignment="Left"  Grid.Row="4" Grid.Column="1" />
-        <TextBlock Text="{Binding Customer.Address}" FontSize="16" TextAlignment="Left"  Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="5" Margin="0.4,0.2,99,0.4" />
+        <TextBlock Text="{Binding SelectedCustomer.Address}" FontSize="16" TextAlignment="Left"  Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="5" Margin="0.4,0.2,99,0.4" />
         <TextBlock Text="Saldo:" FontSize="16" TextAlignment="Left"  Grid.Row="6" Grid.Column="1" />
-        <TextBlock Text="{Binding Customer.Balance}" FontSize="16" TextAlignment="Left"  Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="5" Margin="0.4,0.2,99,0.4" />
+        <TextBlock Text="{Binding SelectedCustomer.Balance}" FontSize="16" TextAlignment="Left"  Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="5" Margin="0.4,0.2,99,0.4" />
         <TextBlock Text="Foto:" FontSize="16" TextAlignment="Left"  Grid.Row="8" Grid.Column="1" />
-        <Button Command="{Binding EIDLezen}"  Content="Geld Opladen"  Grid.Column="4" Grid.Row="10" Grid.ColumnSpan="3" Grid.RowSpan="3" Margin="98.8,0,0,26.2"/>
-        <Button Command="{Binding trgt}" Content="Uitloggen"  Grid.Column="4" Grid.Row="12" Grid.ColumnSpan="3" Grid.RowSpan="3" Margin="98.8,26.2,0,0"/>
-        <Image Source="{Binding Customer.Picture, Converter={StaticResource StringToImageConverter}, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2" Grid.Column="2" Margin="0.4,0.2,0.2,0" Grid.Row="8" Grid.RowSpan="9"/>
+        <Button Command="{Binding GeldOpladen}"  Content="Geld Opladen"  Grid.Column="4" Grid.Row="10" Grid.ColumnSpan="3" Grid.RowSpan="3" Margin="98.8,0,0,26.2"/>
+        <Button Command="{Binding Uitloggen}" Content="Uitloggen"  Grid.Column="4" Grid.Row="12" Grid.ColumnSpan="3" Grid.RowSpan="3" Margin="98.8,26.2,0,0"/>
+        <Image Source="{Binding SelectedCustomer.Picture, Converter={StaticResource StringToImageConverter}, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2" Grid.Column="2" Margin="0.4,0.2,0.2,0" Grid.Row="8" Grid.RowSpan="9"/>
 
     </Grid>
 </UserControl>

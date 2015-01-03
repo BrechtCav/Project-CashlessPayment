@@ -83,15 +83,15 @@ namespace nmct.ba.cashlessproject.Medewerker.ViewModel
         }
         private async void Logout()
         {
-            token = null;
-            ChangePage(new PageOneVM());
-            MenuVisibility = false;
             Register_Employee newLogin = new Register_Employee();
             newLogin.EmployeeID = GekozenEmployee;
             newLogin.From = From;
             newLogin.Until = DateTime.Now;
             newLogin.RegisterID = GekozenKassa;
             await SaveLogin(newLogin);
+            token = null;
+            ChangePage(new PageOneVM());
+            MenuVisibility = false;
         }
 
 

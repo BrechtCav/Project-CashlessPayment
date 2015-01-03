@@ -97,7 +97,8 @@ namespace nmct.ba.CashlessProject.Klant.ViewModel
                         {
                             if(nn.NationalNumber.Equals(test.NationalNumber))
                             {
-                                AccountVM.Customer = nn;
+                                SaldoVM.SelectedCustomer = nn;
+                                AccountVM.SelectedCustomer = nn;
                                 appvm.ChangePage(new AccountVM());
                             }
                             else

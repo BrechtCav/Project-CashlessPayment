@@ -103,6 +103,43 @@ namespace nmct.ba.CashlessProject.api.Models
             }
             return cust;
         }
+        public static int UpdateAccountskl(Transfer t)
+        {
+            int rowsaffected = 0;
+            DbTransaction trans = null;
+
+            try
+            {
+                trans = Database.BeginTransaction(Database.GetConnection("ConnectionString"));
+                if(t.Teken == 0)
+                {
+                    string sql = "UPDATE Scouts.dbo.Customer SET Balance=Balance-@Amount WHERE ID=@ID";
+                    DbParameter par1 = Database.AddParameter("ConnectionString", "@Amount", t.Amount);
+                    DbParameter par2 = Database.AddParameter("ConnectionString", "@ID", t.Cust.ID);
+                    rowsaffected += Database.ModifyData(trans, sql, par1, par2);
+                }
+                else if(t.Teken == 1)
+                {
+                    string sql2 = "UPDATE Scouts.dbo.Customer SET Balance=Balance+@Amount WHERE ID=@ID";
+                    DbParameter par3 = Database.AddParameter("ConnectionString", "@Amount", t.Amount);
+                    DbParameter par4 = Database.AddParameter("ConnectionString", "@ID", t.Cust.ID);
+                    rowsaffected += Database.ModifyData(trans, sql2, par3, par4);
+                }
+                trans.Commit();
+            }
+            catch (Exception ex)
+            {
+                if (trans != null)
+                    trans.Rollback();
+            }
+            finally
+            {
+                if (trans != null)
+                    Database.ReleaseConnection(trans.Connection);
+            }
+
+            return rowsaffected;
+        }
         public static int UpdateAccounts(Transfer t, IEnumerable<Claim> claims)
         {
             int rowsaffected = 0;

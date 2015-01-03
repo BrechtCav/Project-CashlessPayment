@@ -117,7 +117,9 @@ namespace nmct.ba.cashlessproject.Medewerker.ViewModel
 
         #endregion
         #region ICommands
-        
+
+
+            
         //Icommand voor hoger aantal
         public ICommand AmountUp
         {
@@ -316,6 +318,8 @@ namespace nmct.ba.cashlessproject.Medewerker.ViewModel
             ListProductSale = new List<ProductSale>();
             ListProductSale = PSList;
         }
+
+
         //Void voor aantal omhoog
         public void UpAmount()
         {
