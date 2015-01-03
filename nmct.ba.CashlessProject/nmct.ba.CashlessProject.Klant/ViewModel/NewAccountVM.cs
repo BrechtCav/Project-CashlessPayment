@@ -19,6 +19,10 @@ namespace nmct.ba.CashlessProject.Klant.ViewModel
         {
             get { return "New Account"; }
         }
+        public NewAccountVM()
+        {
+            JaEnabled = true;
+        }
         public static Customer NewCust { get; set; }
 
         public ICommand Menu
@@ -33,9 +37,57 @@ namespace nmct.ba.CashlessProject.Klant.ViewModel
         {
             appvm.ChangePage(new PageOneVM());
         }
+        private bool jaenabled;
+        public bool JaEnabled
+        {
+            get { return jaenabled; }
+            set { jaenabled = value; OnPropertyChanged("JaEnabled"); }
+        }
+        private string melding;
+        public string Melding
+        {
+            get { return melding; }
+            set { melding = value; OnPropertyChanged("Melding"); }
+        }
+        public List<Customer> CustomersDB { get; set; }
         private async void AddCustomerToDB()
         {
+            Melding = "";
             await SaveCustomer(NewCust);
+            await GetCustomersFromDB();
+            foreach(Customer cust in CustomersDB)
+            {
+                if(cust.NationalNumber.Equals(NewCust.NationalNumber))
+                {
+                    AccountVM.SelectedCustomer = cust;
+                    SaldoVM.SelectedCustomer = cust;
+                    appvm.ChangePage(new AccountVM());
+                }
+                else
+                {
+                    Melding = "Gelieve terug te keren naar het menu en opnieuw te proberen.";
+                    JaEnabled = false;
+                }
+            }
+        }
+        public async Task<int> GetCustomersFromDB()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string url = string.Format("{0}{1}", URL, "/Customer");
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    string json = await response.Content.ReadAsStringAsync();
+                    List<Customer> result = JsonConvert.DeserializeObject<List<Customer>>(json);
+                    CustomersDB = result;
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
         }
         public async Task<int> SaveCustomer(Customer newCustomer)
         {

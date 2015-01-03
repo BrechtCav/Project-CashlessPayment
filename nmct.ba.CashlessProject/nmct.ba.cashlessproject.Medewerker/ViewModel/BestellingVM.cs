@@ -38,7 +38,13 @@ namespace nmct.ba.cashlessproject.Medewerker.ViewModel
             get { return loadedcustomer; }
             set { loadedcustomer = value; OnPropertyChanged("LoadedCustomer"); }
         }
-
+        //Saldo klant
+        private double saldo;
+        public double Saldo
+        {
+            get { return saldo; }
+            set { saldo = value; OnPropertyChanged("Saldo"); }
+        }
         //Aantal van een product
         private int amount = 1;
         public int Amount
@@ -195,7 +201,7 @@ namespace nmct.ba.cashlessproject.Medewerker.ViewModel
                         await TransferMoney(newTransfer);
                         ListProductSale = new List<ProductSale>();
                         PSList = null;
-                        LoadedCustomer.Balance -= Totaal;
+                        Saldo = LoadedCustomer.Balance - Totaal;
                         Totaal = 0;
                     }
                     else
@@ -372,6 +378,7 @@ namespace nmct.ba.cashlessproject.Medewerker.ViewModel
                                 KlantMelding = "";
                                 LoadedCustomer = new Customer();
                                 LoadedCustomer = nn;
+                                Saldo = LoadedCustomer.Balance;
                             }
                             else
                             {
@@ -401,11 +408,15 @@ namespace nmct.ba.cashlessproject.Medewerker.ViewModel
                 newError.RegisterID = appvm.GekozenKassa;
                 newError.Stacktrace = ex.StackTrace;
                 newError.Timestamp = DateTime.Now;
-                SaveError(newError);
+                Error(newError);
                 BEID_ReaderSet.releaseSDK();
                 KlantMelding = "De kaartlezer werd niet gevonden.";
             }
 
+        }
+        private async void Error(Errorlog newError)
+        {
+            await SaveError(newError);
         }
         //Ophalen van data van eID
         private Customer Load_eid(BEID_ReaderContext Reader)

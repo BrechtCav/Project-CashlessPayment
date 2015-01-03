@@ -47,7 +47,7 @@ namespace nmct.ba.CashlessProject.Klant.ViewModel
 
 
         public int Loaded = 0;
-        private string _intro = "Welkom bij KV Kortrijk";
+        private string _intro = "Welkom";
         public string Intro
         {
             get { return _intro; }
@@ -97,8 +97,15 @@ namespace nmct.ba.CashlessProject.Klant.ViewModel
                         {
                             if(nn.NationalNumber.Equals(test.NationalNumber))
                             {
+                                if(nn.Picture == null)
+                                {
+                                    string pic = "0";
+                                    byte[] id = System.Text.Encoding.UTF8.GetBytes(pic);
+                                    nn.Picture = id;
+                                }
                                 SaldoVM.SelectedCustomer = nn;
                                 AccountVM.SelectedCustomer = nn;
+
                                 appvm.ChangePage(new AccountVM());
                             }
                             else
@@ -167,7 +174,6 @@ namespace nmct.ba.CashlessProject.Klant.ViewModel
                     return 0;
                 }
             }
-            return 0;
         }
 
     }
