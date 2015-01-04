@@ -11,7 +11,6 @@ namespace nmct.ba.cashlessproject.model
         private int registerid;
         private string registername;
         private string device;
-        private string location;
 
         public int RegisterID
         {
@@ -39,11 +38,6 @@ namespace nmct.ba.cashlessproject.model
         {
             get { return device; }
             set { device = value; }
-        }
-        public string Location
-        {
-            get { return location; }
-            set { location = value; }
         }
         public override string ToString()
         {

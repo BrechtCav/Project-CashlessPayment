@@ -64,7 +64,6 @@ namespace nmct.ba.CashlessProject.api.Models
                 RegisterID = Convert.ToInt32(record["ID"]),
                 RegisterName = record["RegisterName"].ToString(),
                 Device = record["Device"].ToString(),
-                Location = record["Location"].ToString(),
             };
         }
     }

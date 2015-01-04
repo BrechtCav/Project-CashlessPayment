@@ -43,13 +43,6 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
             get { return kassanaam; }
             set { kassanaam = value; OnPropertyChanged("KassaNaam"); }
         }
-        //IsEnabled kassalocatie
-        private bool kassalocatie = false;
-        public bool KassaLocatie
-        {
-            get { return kassalocatie; }
-            set { kassalocatie = value; OnPropertyChanged("KassaLocatie"); }
-        }
         //IsEnabled kassatoestel
         private bool kassatoestel = false;
         public bool KassaToestel
@@ -91,13 +84,6 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
             get { return naam; }
             set { naam = value; OnPropertyChanged("Naam"); }
         }
-        // kassa locatie
-        private string locatie;
-        public string Locatie
-        {
-            get { return locatie; }
-            set { locatie = value; OnPropertyChanged("Locatie"); }
-        }
         // kassa toestel
         private string toestel;
         public string Toestel
@@ -129,7 +115,6 @@ namespace nmct.ba.CashlessProject.Management.ViewModel
         {
             Aanmeldlijst = null;
             Naam = GekozenKassa.RegisterName;
-            Locatie = GekozenKassa.Location;
             Toestel = GekozenKassa.Device;
             await GetListRegEmp(GekozenKassa.RegisterID);
         }
