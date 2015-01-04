@@ -200,7 +200,7 @@ namespace nmct.ba.cashlessproject.Medewerker.ViewModel
                         newTransfer.Teken = 0;
                         await TransferMoney(newTransfer);
                         ListProductSale = new List<ProductSale>();
-                        PSList = null;
+                        PSList = new List<ProductSale>();
                         Saldo = LoadedCustomer.Balance - Totaal;
                         Totaal = 0;
                     }
